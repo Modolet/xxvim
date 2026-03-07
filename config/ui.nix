@@ -51,7 +51,8 @@
           { "<leader>q", group = "quit/session" },
           { "<leader>r", group = "run/build" },
           { "<leader>s", group = "search" },
-          { "<leader>t", group = "terminal" },
+          { "<leader>t", group = "terminal/tests" },
+          { "<leader>u", group = "ui/toggles" },
           { "<leader>w", group = "windows" },
           { "<leader>x", group = "diagnostics/quickfix" },
         })
