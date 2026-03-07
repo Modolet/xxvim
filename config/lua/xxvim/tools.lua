@@ -162,3 +162,19 @@ if ok_overseer then
     condition = { filetype = { "c", "cpp", "cmake" } },
   })
 end
+
+
+vim.api.nvim_create_user_command("XxvimCdRoot", function()
+  local root = project_root()
+  vim.cmd("cd " .. vim.fn.fnameescape(root))
+  vim.notify("Changed cwd to " .. root)
+end, {})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    local ok, persistence = pcall(require, "persistence")
+    if ok then
+      persistence.save()
+    end
+  end,
+})

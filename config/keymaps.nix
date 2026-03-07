@@ -209,6 +209,36 @@
       }
       {
         mode = "n";
+        key = "<leader>xr";
+        action = "<cmd>Trouble lsp_references toggle<cr>";
+        options.desc = "LSP References (Trouble)";
+      }
+      {
+        mode = "n";
+        key = "<leader>xs";
+        action = "<cmd>Trouble symbols toggle focus=false<cr>";
+        options.desc = "Symbols (Trouble)";
+      }
+      {
+        mode = "n";
+        key = "<leader>xl";
+        action = "<cmd>Trouble loclist toggle<cr>";
+        options.desc = "Location List (Trouble)";
+      }
+      {
+        mode = "n";
+        key = "<leader>xq";
+        action = "<cmd>Trouble qflist toggle<cr>";
+        options.desc = "Quickfix List (Trouble)";
+      }
+      {
+        mode = "n";
+        key = "<leader>pR";
+        action = "<cmd>XxvimCdRoot<cr>";
+        options.desc = "Cd Root";
+      }
+      {
+        mode = "n";
         key = "<leader>xx";
         action = "<cmd>Trouble diagnostics toggle<cr>";
         options.desc = "Diagnostics (Trouble)";

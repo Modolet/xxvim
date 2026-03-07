@@ -49,6 +49,7 @@
           { "<leader>f", group = "file/find" },
           { "<leader>g", group = "git" },
           { "<leader>q", group = "quit/session" },
+          { "<leader>r", group = "run/build" },
           { "<leader>s", group = "search" },
           { "<leader>t", group = "terminal" },
           { "<leader>w", group = "windows" },
@@ -122,8 +123,25 @@
             grep.hidden = true;
             explorer.hidden = true;
           };
-          win.input.keys."<Esc>" = {
-            __raw = ''{ "close", mode = { "n", "i" } }'';
+          layout = {
+            preset = "default";
+            cycle = false;
+          };
+          matcher = {
+            smartcase = true;
+            frecency = true;
+          };
+          formatters.file.filename_first = true;
+          win = {
+            input.keys."<Esc>" = {
+              __raw = ''{ "close", mode = { "n", "i" } }'';
+            };
+            preview = {
+              wo = {
+                number = false;
+                relativenumber = false;
+              };
+            };
           };
         };
         explorer = {
