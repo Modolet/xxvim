@@ -425,7 +425,7 @@
       }
       {
         mode = "n";
-        key = "<leader>sR";
+        key = "<leader>sr";
         action = "<cmd>lua Snacks.picker.resume()<cr>";
         options.desc = "Resume";
       }
@@ -791,6 +791,12 @@
       }
       {
         mode = "n";
+        key = "<leader>da";
+        action = "<cmd>lua require('dap').continue({ before = function() require('dap').set_breakpoint(vim.fn.input('Args: ')) end })<cr>";
+        options.desc = "Run with Args";
+      }
+      {
+        mode = "n";
         key = "<leader>db";
         action = "<cmd>lua require('dap').toggle_breakpoint()<cr>";
         options.desc = "Toggle Breakpoint";
@@ -803,7 +809,7 @@
       }
       {
         mode = "n";
-        key = "<leader>dl";
+        key = "<leader>dL";
         action = "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>";
         options.desc = "Log Point";
       }
@@ -816,6 +822,12 @@
       {
         mode = "n";
         key = "<leader>dr";
+        action = "<cmd>lua require('dap').repl.toggle()<cr>";
+        options.desc = "Toggle REPL";
+      }
+      {
+        mode = "n";
+        key = "<leader>dl";
         action = "<cmd>lua require('dap').run_last()<cr>";
         options.desc = "Run Last";
       }
