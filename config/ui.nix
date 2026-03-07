@@ -95,6 +95,25 @@
       };
     };
 
+
+    plugins.trouble = {
+      enable = true;
+      settings = {
+        auto_close = false;
+        auto_refresh = true;
+        focus = false;
+        follow = true;
+        indent_guides = true;
+        modes = {
+          diagnostics = { auto_open = false; };
+        };
+        win = {
+          position = "right";
+          size = 0.25;
+        };
+      };
+    };
+
     plugins.todo-comments.enable = true;
     plugins.flash.enable = true;
 

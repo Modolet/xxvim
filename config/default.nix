@@ -17,7 +17,6 @@
       alpha-nvim
       blink-compat
       luasnip
-      trouble-nvim
       nvim-nio
       neotest
       neotest-python
