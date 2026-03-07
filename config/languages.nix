@@ -95,6 +95,12 @@
         callback = {
           __raw = ''
             function()
+              if _G.xxvim_toggles and _G.xxvim_toggles.autoformat == false then
+                return
+              end
+              if vim.b.xxvim_autoformat == false then
+                return
+              end
               require("conform").format({ async = false, lsp_format = "fallback" })
             end
           '';

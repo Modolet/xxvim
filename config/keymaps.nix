@@ -10,6 +10,36 @@
         options.desc = "Save File";
       }
       {
+        mode = "n";
+        key = "<leader>ur";
+        action = "<cmd>nohlsearch<bar>diffupdate<bar>normal! <C-L><cr>";
+        options.desc = "Redraw / Clear hlsearch / Diff Update";
+      }
+      {
+        mode = "n";
+        key = "<leader>K";
+        action = "<cmd>norm! K<cr>";
+        options.desc = "Keywordprg";
+      }
+      {
+        mode = "n";
+        key = "<leader>l";
+        action = "<cmd>Lazy<cr>";
+        options.desc = "Lazy";
+      }
+      {
+        mode = "n";
+        key = "gco";
+        action = "o<Esc>Vcx<Esc><cmd>normal gcc<cr>fxa<BS>";
+        options.desc = "Add Comment Below";
+      }
+      {
+        mode = "n";
+        key = "gcO";
+        action = "O<Esc>Vcx<Esc><cmd>normal gcc<cr>fxa<BS>";
+        options.desc = "Add Comment Above";
+      }
+      {
         mode = [ "n" "i" "s" ];
         key = "<Esc>";
         action = "<cmd>nohlsearch<bar>echo<cr><esc>";
@@ -719,6 +749,48 @@
       }
       {
         mode = "n";
+        key = "[t";
+        action = "<cmd>lua require('todo-comments').jump_prev()<cr>";
+        options.desc = "Previous Todo Comment";
+      }
+      {
+        mode = "n";
+        key = "]t";
+        action = "<cmd>lua require('todo-comments').jump_next()<cr>";
+        options.desc = "Next Todo Comment";
+      }
+      {
+        mode = "n";
+        key = "<leader>uC";
+        action = "<cmd>lua Snacks.picker.colorschemes()<cr>";
+        options.desc = "Colorschemes";
+      }
+      {
+        mode = "n";
+        key = "<leader>un";
+        action = "<cmd>Noice dismiss<cr>";
+        options.desc = "Dismiss All Notifications";
+      }
+      {
+        mode = "n";
+        key = "<leader>ui";
+        action = "<cmd>Inspect<cr>";
+        options.desc = "Inspect Pos";
+      }
+      {
+        mode = "n";
+        key = "<leader>uI";
+        action = "<cmd>InspectTree<cr>";
+        options.desc = "Inspect Tree";
+      }
+      {
+        mode = "n";
+        key = "<leader>uZ";
+        action = "<cmd>XxvimToggleZoom<cr>";
+        options.desc = "Toggle Zoom Mode";
+      }
+      {
+        mode = "n";
         key = "<leader>db";
         action = "<cmd>lua require('dap').toggle_breakpoint()<cr>";
         options.desc = "Toggle Breakpoint";
@@ -947,9 +1019,57 @@
       }
       {
         mode = "n";
+        key = "<leader><tab><tab>";
+        action = "<cmd>tabnew<cr>";
+        options.desc = "New Tab";
+      }
+      {
+        mode = "n";
+        key = "<leader><tab>]";
+        action = "<cmd>tabnext<cr>";
+        options.desc = "Next Tab";
+      }
+      {
+        mode = "n";
+        key = "<leader><tab>[";
+        action = "<cmd>tabprevious<cr>";
+        options.desc = "Previous Tab";
+      }
+      {
+        mode = "n";
+        key = "<leader><tab>f";
+        action = "<cmd>tabfirst<cr>";
+        options.desc = "First Tab";
+      }
+      {
+        mode = "n";
+        key = "<leader><tab>l";
+        action = "<cmd>tablast<cr>";
+        options.desc = "Last Tab";
+      }
+      {
+        mode = "n";
+        key = "<leader><tab>d";
+        action = "<cmd>tabclose<cr>";
+        options.desc = "Close Tab";
+      }
+      {
+        mode = "n";
+        key = "<leader><tab>o";
+        action = "<cmd>tabonly<cr>";
+        options.desc = "Close Other Tabs";
+      }
+      {
+        mode = "n";
         key = "<leader>qs";
         action = "<cmd>XxvimSessionRestore<cr>";
         options.desc = "Restore Session";
+      }
+      {
+        mode = "n";
+        key = "<leader>qd";
+        action = "<cmd>lua require('persistence').stop()<cr>";
+        options.desc = "Don't Save Current Session";
       }
       {
         mode = "n";
