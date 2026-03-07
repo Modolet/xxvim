@@ -24,7 +24,5 @@
     };
 
     plugins.friendly-snippets.enable = true;
-
-    extraConfigLua = builtins.readFile ./lua/xxvim/coding.lua;
   };
 }

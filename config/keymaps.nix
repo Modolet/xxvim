@@ -5,6 +5,18 @@
     keymaps = [
       {
         mode = "n";
+        key = "<C-a>";
+        action.__raw = "function() require('dial.map').manipulate('increment', 'normal') end";
+        options.desc = "Increment";
+      }
+      {
+        mode = "n";
+        key = "<C-x>";
+        action.__raw = "function() require('dial.map').manipulate('decrement', 'normal') end";
+        options.desc = "Decrement";
+      }
+      {
+        mode = "n";
         key = "<leader>e";
         action = "<cmd>lua Snacks.explorer()<cr>";
         options.desc = "Explorer";

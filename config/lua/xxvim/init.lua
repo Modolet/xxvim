@@ -1,5 +1,0 @@
-require("xxvim.ui")
-require("xxvim.editor")
-require("xxvim.coding")
-require("xxvim.lsp")
-require("xxvim.dap")
