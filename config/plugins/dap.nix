@@ -34,6 +34,6 @@
       settings = {};
     };
 
-    extraConfigLua = builtins.readFile ./lua/xxvim/dap.lua;
+    extraConfigLua = builtins.readFile ../lua/xxvim/dap.lua;
   };
 }

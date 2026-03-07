@@ -1,6 +1,11 @@
-{ ... }:
+{ pkgs, ... }:
 {
   config = {
+    extraPlugins = with pkgs.vimPlugins; [
+      blink-compat
+      luasnip
+    ];
+
     plugins.blink-cmp = {
       enable = true;
       settings = {

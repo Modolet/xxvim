@@ -95,7 +95,6 @@
       };
     };
 
-
     plugins.trouble = {
       enable = true;
       settings = {
@@ -156,11 +155,9 @@
             input.keys."<Esc>" = {
               __raw = ''{ "close", mode = { "n", "i" } }'';
             };
-            preview = {
-              wo = {
-                number = false;
-                relativenumber = false;
-              };
+            preview.wo = {
+              number = false;
+              relativenumber = false;
             };
           };
         };
@@ -178,8 +175,5 @@
         words.enabled = true;
       };
     };
-
-    opts.laststatus = 3;
-    extraConfigLua = builtins.readFile ./lua/xxvim/ui.lua;
   };
 }

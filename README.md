@@ -57,7 +57,7 @@ nix develop
 - `gd` / `gD` / `gr` / `gI` / `gt`：定义、声明、引用、实现、类型定义
 - `K`：悬浮文档
 - `<leader>ca`：代码动作
-- `<leader>rn`：增量重命名
+- `<leader>cr`：LSP 重命名
 - `<leader>cf`：格式化
 - `[d` / `]d`：前后跳转诊断
 - `<leader>xx`：Trouble 诊断列表
@@ -88,5 +88,5 @@ nix develop
 - `<leader>wd` / `<leader>wo` / `<leader>w=`：关闭窗口 / 仅保留当前 / 均分窗口
 - `<S-h>` / `<S-l>`：上一个 / 下一个 buffer
 - `<leader>bd` / `<leader>bo`：删除当前 / 其他 buffer
-- `<leader>qs` / `<leader>qr`：保存 / 恢复 session
-- `<leader>sl` / `<leader>sL`：恢复最后 session / 当前目录 session
+- `<leader>qs` / `<leader>ql`：恢复 session / 恢复最后 session
+- `<leader>qS` / `<leader>qd`：选择 session / 停止保存当前 session

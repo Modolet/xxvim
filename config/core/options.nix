@@ -32,10 +32,18 @@
       shiftwidth = 2;
       tabstop = 2;
       softtabstop = 2;
+      laststatus = 3;
     };
 
     globals = {
       loaded_perl_provider = 0;
+      mapleader = " ";
     };
+
+    extraConfigLuaPre = ''
+      vim.g.mapleader = " "
+      vim.g.maplocalleader = ","
+      vim.g.xxvim_start_time = vim.uv.hrtime()
+    '';
   };
 }

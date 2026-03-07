@@ -1,25 +1,8 @@
-{ pkgs, ... }:
+{ ... }:
 {
   config = {
     plugins.treesitter = {
       enable = true;
-      grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-        bash
-        c
-        cmake
-        cpp
-        json
-        lua
-        markdown
-        markdown_inline
-        nix
-        python
-        query
-        rust
-        toml
-        vim
-        vimdoc
-      ];
       settings = {
         highlight.enable = true;
         indent.enable = true;
@@ -72,20 +55,6 @@
         map("<leader>ss", function() Snacks.picker.lsp_symbols() end, "Document Symbols")
         map("<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, "Workspace Symbols")
       '';
-      servers = {
-        rust_analyzer = {
-          enable = true;
-          installCargo = false;
-          installRustc = false;
-        };
-        clangd.enable = true;
-        cmake.enable = true;
-        basedpyright.enable = true;
-        jsonls.enable = true;
-        marksman.enable = true;
-        nil_ls.enable = true;
-        taplo.enable = true;
-      };
     };
 
     autoCmd = [
@@ -131,20 +100,6 @@
           },
         },
       })
-
-      local ok_crates, crates = pcall(require, "crates")
-      if ok_crates then
-        crates.setup({
-          popup = {
-            border = "rounded",
-          },
-          completion = {
-            blink = {
-              use_custom_kind = true,
-            },
-          },
-        })
-      end
     '';
   };
 }

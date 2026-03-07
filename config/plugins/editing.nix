@@ -1,6 +1,8 @@
 { ... }:
 {
   config = {
+    extraConfigLua = builtins.readFile ../lua/xxvim/workflow.lua;
+
     plugins.yanky = {
       enable = true;
       settings = {
@@ -24,7 +26,5 @@
 
     plugins.mini-surround.enable = true;
     plugins.mini-ai.enable = true;
-
-    extraConfigLua = builtins.readFile ./lua/xxvim/workflow.lua;
   };
 }
