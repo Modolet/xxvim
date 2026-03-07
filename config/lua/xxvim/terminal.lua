@@ -1,38 +1,103 @@
 local M = {}
 
-local state = {
-  float_term = nil,
-  bottom_term = nil,
+local terminals = {
+  float = {
+    layout = "float",
+    command = nil,
+    win = nil,
+    buf = nil,
+    job = nil,
+  },
+  bottom = {
+    layout = "bottom",
+    command = nil,
+    win = nil,
+    buf = nil,
+    job = nil,
+  },
+  lazygit = {
+    layout = "float",
+    command = "lazygit",
+    win = nil,
+    buf = nil,
+    job = nil,
+    auto_close_on_exit = true,
+  },
 }
 
-local function create_terminal_buffer(command)
-  local buffer = vim.api.nvim_create_buf(false, true)
-  vim.bo[buffer].bufhidden = "hide"
-  vim.bo[buffer].filetype = "terminal"
-  return buffer, command or vim.o.shell
+local function is_valid_buf(buffer)
+  return buffer and vim.api.nvim_buf_is_valid(buffer)
 end
 
-local function start_terminal(buffer, command)
-  vim.api.nvim_buf_call(buffer, function()
-    vim.fn.termopen(command)
-    vim.cmd("startinsert")
-  end)
+local function is_valid_win(window)
+  return window and vim.api.nvim_win_is_valid(window)
 end
 
-function M.toggle_float_terminal(command)
-  if state.float_term and vim.api.nvim_win_is_valid(state.float_term) then
-    vim.api.nvim_win_close(state.float_term, true)
-    state.float_term = nil
-    return
+local function reset_terminal(name)
+  local terminal = terminals[name]
+  terminal.win = nil
+  terminal.buf = nil
+  terminal.job = nil
+end
+
+local function close_terminal(name)
+  local terminal = terminals[name]
+  if terminal.job and vim.fn.jobwait({ terminal.job }, 0)[1] == -1 then
+    pcall(vim.fn.jobstop, terminal.job)
+  end
+  if is_valid_win(terminal.win) then
+    pcall(vim.api.nvim_win_close, terminal.win, true)
+  end
+  if is_valid_buf(terminal.buf) then
+    pcall(vim.api.nvim_buf_delete, terminal.buf, { force = true })
+  end
+  reset_terminal(name)
+end
+
+local function close_terminal_window(name)
+  local terminal = terminals[name]
+  if is_valid_win(terminal.win) then
+    pcall(vim.api.nvim_win_close, terminal.win, true)
+  end
+  if is_valid_buf(terminal.buf) then
+    pcall(vim.api.nvim_buf_delete, terminal.buf, { force = true })
+  end
+  reset_terminal(name)
+end
+
+local function setup_terminal_keymaps(buffer, name)
+  local function map(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, {
+      buffer = buffer,
+      silent = true,
+      nowait = true,
+      desc = desc,
+    })
   end
 
-  local buffer, cmd = create_terminal_buffer(command)
+  map("t", "<Esc><Esc>", [[<C-\\><C-n>]], "Terminal Normal Mode")
+  map("n", "q", function()
+    close_terminal(name)
+  end, "Close Terminal")
+  map("t", "<C-q>", function()
+    close_terminal(name)
+  end, "Close Terminal")
+end
+
+local function open_window(buffer, layout)
+  if layout == "bottom" then
+    vim.cmd("botright 15split")
+    local window = vim.api.nvim_get_current_win()
+    vim.api.nvim_win_set_buf(window, buffer)
+    return window
+  end
+
   local width = math.floor(vim.o.columns * 0.85)
   local height = math.floor(vim.o.lines * 0.75)
   local row = math.floor((vim.o.lines - height) / 2 - 1)
   local col = math.floor((vim.o.columns - width) / 2)
 
-  state.float_term = vim.api.nvim_open_win(buffer, true, {
+  return vim.api.nvim_open_win(buffer, true, {
     relative = "editor",
     width = width,
     height = height,
@@ -41,26 +106,59 @@ function M.toggle_float_terminal(command)
     style = "minimal",
     border = "rounded",
   })
+end
 
-  start_terminal(buffer, cmd)
+local function spawn_terminal(name, command)
+  local terminal = terminals[name]
+  local buffer = vim.api.nvim_create_buf(false, true)
+  local cmd = command or terminal.command or vim.o.shell
+
+  terminal.buf = buffer
+  terminal.command = cmd
+
+  vim.bo[buffer].bufhidden = "wipe"
+  vim.bo[buffer].filetype = "terminal"
+
+  terminal.win = open_window(buffer, terminal.layout)
+  setup_terminal_keymaps(buffer, name)
+
+  vim.api.nvim_buf_call(buffer, function()
+    terminal.job = vim.fn.termopen(cmd, {
+      on_exit = function()
+        vim.schedule(function()
+          if terminal.auto_close_on_exit then
+            close_terminal_window(name)
+          elseif is_valid_buf(terminal.buf) then
+            terminal.job = nil
+          else
+            reset_terminal(name)
+          end
+        end)
+      end,
+    })
+    vim.cmd("startinsert")
+  end)
+end
+
+local function toggle_terminal(name, command)
+  local terminal = terminals[name]
+  if is_valid_win(terminal.win) or is_valid_buf(terminal.buf) then
+    close_terminal(name)
+    return
+  end
+  spawn_terminal(name, command)
+end
+
+function M.toggle_float_terminal(command)
+  toggle_terminal("float", command)
 end
 
 function M.toggle_bottom_terminal(command)
-  if state.bottom_term and vim.api.nvim_win_is_valid(state.bottom_term) then
-    vim.api.nvim_win_close(state.bottom_term, true)
-    state.bottom_term = nil
-    return
-  end
-
-  vim.cmd("botright 15split")
-  state.bottom_term = vim.api.nvim_get_current_win()
-  local buffer, cmd = create_terminal_buffer(command)
-  vim.api.nvim_win_set_buf(state.bottom_term, buffer)
-  start_terminal(buffer, cmd)
+  toggle_terminal("bottom", command)
 end
 
 function M.toggle_lazygit()
-  M.toggle_float_terminal("lazygit")
+  toggle_terminal("lazygit")
 end
 
 function M.setup_commands()

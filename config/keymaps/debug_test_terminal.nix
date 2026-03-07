@@ -129,9 +129,15 @@
       }
       {
         mode = [ "n" "t" ];
-        key = "<C-/>";
+        key = "<C-.>";
         action = "<cmd>XxvimFloatTerm<cr>";
-        options.desc = "Terminal (Root Dir)";
+        options.desc = "Float Terminal";
+      }
+      {
+        mode = [ "n" "t" ];
+        key = "<C-/>";
+        action = "<cmd>XxvimBottomTerm<cr>";
+        options.desc = "Bottom Terminal";
       }
       {
         mode = "n";

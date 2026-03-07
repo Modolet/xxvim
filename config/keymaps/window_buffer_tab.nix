@@ -51,15 +51,15 @@
       }
       {
         mode = "n";
-        key = "<S-h>";
-        action = "<cmd>BufferLineCyclePrev<cr>";
-        options.desc = "Prev Buffer";
+        key = "H";
+        action = "^";
+        options.desc = "Line Start";
       }
       {
         mode = "n";
-        key = "<S-l>";
-        action = "<cmd>BufferLineCycleNext<cr>";
-        options.desc = "Next Buffer";
+        key = "L";
+        action = "$";
+        options.desc = "Line End";
       }
       {
         mode = "n";
