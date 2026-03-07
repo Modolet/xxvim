@@ -30,14 +30,62 @@
       {
         mode = "n";
         key = "<leader>ff";
-        action = "<cmd>lua Snacks.picker.files()<cr>";
+        action = "<cmd>lua Snacks.picker.files({ cwd = xxvim_root() })<cr>";
         options.desc = "Find Files";
       }
       {
         mode = "n";
         key = "<leader>fg";
-        action = "<cmd>lua Snacks.picker.grep()<cr>";
+        action = "<cmd>lua Snacks.picker.grep({ cwd = xxvim_root() })<cr>";
         options.desc = "Grep";
+      }
+      {
+        mode = "n";
+        key = "<leader>fF";
+        action = "<cmd>lua Snacks.picker.files({ cwd = xxvim_root() })<cr>";
+        options.desc = "Find Files (Root Dir)";
+      }
+      {
+        mode = "n";
+        key = "<leader>fG";
+        action = "<cmd>lua Snacks.picker.grep({ cwd = xxvim_root() })<cr>";
+        options.desc = "Grep (Root Dir)";
+      }
+      {
+        mode = "n";
+        key = "<leader>rc";
+        action = "<cmd>OverseerRun cargo check<cr>";
+        options.desc = "Cargo Check";
+      }
+      {
+        mode = "n";
+        key = "<leader>rC";
+        action = "<cmd>OverseerRun cargo clippy<cr>";
+        options.desc = "Cargo Clippy";
+      }
+      {
+        mode = "n";
+        key = "<leader>rr";
+        action = "<cmd>OverseerRun cargo run<cr>";
+        options.desc = "Cargo Run";
+      }
+      {
+        mode = "n";
+        key = "<leader>rT";
+        action = "<cmd>OverseerRun cargo nextest<cr>";
+        options.desc = "Cargo Nextest";
+      }
+      {
+        mode = "n";
+        key = "<leader>rp";
+        action = "<cmd>OverseerRun python current file<cr>";
+        options.desc = "Python Run File";
+      }
+      {
+        mode = "n";
+        key = "<leader>rm";
+        action = "<cmd>OverseerRun cmake build<cr>";
+        options.desc = "CMake Build";
       }
       {
         mode = "n";

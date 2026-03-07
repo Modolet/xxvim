@@ -23,6 +23,7 @@
       neotest-python
       neotest-rust
       persistence-nvim
+      crates-nvim
     ];
 
     extraPackages = with pkgs; [
@@ -38,6 +39,7 @@
       rust-analyzer
       cargo
       cargo-nextest
+      clippy
       rustc
       clang-tools
       cmake
@@ -54,6 +56,8 @@
       nodePackages.markdownlint-cli
       nil
       nixfmt
+      statix
+      deadnix
       taplo
       shfmt
       stylua

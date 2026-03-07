@@ -120,6 +120,20 @@
           },
         },
       })
+
+      local ok_crates, crates = pcall(require, "crates")
+      if ok_crates then
+        crates.setup({
+          popup = {
+            border = "rounded",
+          },
+          completion = {
+            blink = {
+              use_custom_kind = true,
+            },
+          },
+        })
+      end
     '';
   };
 }

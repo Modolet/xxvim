@@ -1,3 +1,25 @@
+local function project_root()
+  local current = vim.api.nvim_buf_get_name(0)
+  local start = current ~= "" and vim.fs.dirname(current) or vim.loop.cwd()
+  local markers = {
+    ".git",
+    "flake.nix",
+    "Cargo.toml",
+    "pyproject.toml",
+    "setup.py",
+    "CMakeLists.txt",
+    "compile_commands.json",
+    "package.json",
+  }
+  local found = vim.fs.find(markers, { path = start, upward = true })[1]
+  if found then
+    return vim.fs.dirname(found)
+  end
+  return vim.loop.cwd()
+end
+
+_G.xxvim_root = project_root
+
 local ok_neotest, neotest = pcall(require, "neotest")
 if ok_neotest then
   neotest.setup({
@@ -39,31 +61,55 @@ end
 local ok_overseer, overseer = pcall(require, "overseer")
 if ok_overseer then
   overseer.register_template({
-    name = "cargo build",
+    name = "cargo check",
     builder = function()
       return {
         cmd = { "cargo" },
-        args = { "build" },
+        args = { "check" },
+        cwd = project_root(),
         components = { { "default" } },
       }
     end,
-    condition = {
-      filetype = { "rust" },
-    },
+    condition = { filetype = { "rust" } },
   })
 
   overseer.register_template({
-    name = "cargo test",
+    name = "cargo clippy",
     builder = function()
       return {
         cmd = { "cargo" },
-        args = { "test" },
+        args = { "clippy" },
+        cwd = project_root(),
         components = { { "default" } },
       }
     end,
-    condition = {
-      filetype = { "rust" },
-    },
+    condition = { filetype = { "rust" } },
+  })
+
+  overseer.register_template({
+    name = "cargo nextest",
+    builder = function()
+      return {
+        cmd = { "cargo" },
+        args = { "nextest", "run" },
+        cwd = project_root(),
+        components = { { "default" } },
+      }
+    end,
+    condition = { filetype = { "rust" } },
+  })
+
+  overseer.register_template({
+    name = "cargo run",
+    builder = function()
+      return {
+        cmd = { "cargo" },
+        args = { "run" },
+        cwd = project_root(),
+        components = { { "default" } },
+      }
+    end,
+    condition = { filetype = { "rust" } },
   })
 
   overseer.register_template({
@@ -72,12 +118,36 @@ if ok_overseer then
       return {
         cmd = { "pytest" },
         args = { vim.fn.expand("%") },
+        cwd = project_root(),
         components = { { "default" } },
       }
     end,
-    condition = {
-      filetype = { "python" },
-    },
+    condition = { filetype = { "python" } },
+  })
+
+  overseer.register_template({
+    name = "python current file",
+    builder = function()
+      return {
+        cmd = { "python" },
+        args = { vim.fn.expand("%") },
+        cwd = project_root(),
+        components = { { "default" } },
+      }
+    end,
+    condition = { filetype = { "python" } },
+  })
+
+  overseer.register_template({
+    name = "cmake configure",
+    builder = function()
+      return {
+        cmd = { "cmake", "-S", ".", "-B", "build" },
+        cwd = project_root(),
+        components = { { "default" } },
+      }
+    end,
+    condition = { filetype = { "c", "cpp", "cmake" } },
   })
 
   overseer.register_template({
@@ -85,11 +155,10 @@ if ok_overseer then
     builder = function()
       return {
         cmd = { "cmake", "--build", "build" },
+        cwd = project_root(),
         components = { { "default" } },
       }
     end,
-    condition = {
-      filetype = { "c", "cpp", "cmake" },
-    },
+    condition = { filetype = { "c", "cpp", "cmake" } },
   })
 end
