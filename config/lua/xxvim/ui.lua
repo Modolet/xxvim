@@ -56,18 +56,19 @@ if has_which_key then
     preset = "modern",
     delay = 200,
     icons = { mappings = true },
-    spec = {
-      { "<leader>c", group = "code" },
-      { "<leader>d", group = "debug" },
-      { "<leader>f", group = "find/file" },
-      { "<leader>g", group = "git" },
-      { "<leader>s", group = "search/symbol" },
-      { "<leader>x", group = "diagnostics" },
-      { "<leader>t", group = "terminal" },
-      { "<leader>w", group = "window" },
-      { "<leader>b", group = "buffer" },
-      { "<leader>q", group = "session" },
-    },
+  })
+
+  which_key.add({
+    { "<leader>b", group = "buffer" },
+    { "<leader>c", group = "code" },
+    { "<leader>d", group = "debug" },
+    { "<leader>f", group = "file/find" },
+    { "<leader>g", group = "git" },
+    { "<leader>q", group = "quit/session" },
+    { "<leader>s", group = "search" },
+    { "<leader>t", group = "terminal" },
+    { "<leader>w", group = "windows" },
+    { "<leader>x", group = "diagnostics/quickfix" },
   })
 end
 
