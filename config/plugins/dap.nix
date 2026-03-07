@@ -34,6 +34,8 @@
       settings = {};
     };
 
-    extraConfigLua = builtins.readFile ../lua/xxvim/dap.lua;
+    extraConfigLua = ''
+      require("xxvim.dap")
+    '';
   };
 }

@@ -24,5 +24,4 @@ terminal.setup_commands()
 session.setup_commands()
 buffers.setup_commands()
 
-_G.xxvim_workflow = workflow
-
+return workflow

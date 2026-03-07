@@ -1,0 +1,14 @@
+[
+  {"prefix":"<leader>b","group":"buffer"},
+  {"prefix":"<leader>c","group":"code"},
+  {"prefix":"<leader>d","group":"debug"},
+  {"prefix":"<leader>f","group":"file/find"},
+  {"prefix":"<leader>g","group":"git"},
+  {"prefix":"<leader>q","group":"quit/session"},
+  {"prefix":"<leader>r","group":"run/build"},
+  {"prefix":"<leader>s","group":"search"},
+  {"prefix":"<leader>t","group":"terminal/tests"},
+  {"prefix":"<leader>u","group":"ui/toggles"},
+  {"prefix":"<leader>w","group":"windows"},
+  {"prefix":"<leader>x","group":"diagnostics/quickfix"}
+]

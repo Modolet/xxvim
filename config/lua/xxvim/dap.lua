@@ -1,10 +1,12 @@
+local M = {}
+
 local ok_dap, dap = pcall(require, "dap")
 local ok_dapui, dapui = pcall(require, "dapui")
 if not ok_dap then
-  return
+  return M
 end
 
-local function run_with_args()
+function M.run_with_args()
   local config = dap.configurations[vim.bo.filetype] and dap.configurations[vim.bo.filetype][1]
   if not config then
     vim.notify("No DAP configuration for current filetype", vim.log.levels.WARN)
@@ -15,8 +17,6 @@ local function run_with_args()
   cfg.args = args ~= "" and vim.split(args, " ") or {}
   dap.run(cfg)
 end
-
-_G.xxvim_dap_run_with_args = run_with_args
 
 if ok_dapui then
   dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -77,3 +77,5 @@ vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignErro
 vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
 vim.fn.sign_define("DapLogPoint", { text = ".>", texthl = "DiagnosticSignInfo", linehl = "", numhl = "" })
 vim.fn.sign_define("DapStopped", { text = "", texthl = "DiagnosticSignHint", linehl = "Visual", numhl = "" })
+
+return M

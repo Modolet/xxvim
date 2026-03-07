@@ -4,7 +4,7 @@
       {
         mode = "n";
         key = "<leader>da";
-        action = "<cmd>lua xxvim_dap_run_with_args()<cr>";
+        action = "<cmd>lua require('xxvim.dap').run_with_args()<cr>";
         options.desc = "Run with Args";
       }
       {

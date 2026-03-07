@@ -40,7 +40,7 @@
       {
         mode = "n";
         key = "<leader>gb";
-        action = "<cmd>lua _G.xxvim_workflow.git_blame_line()<cr>";
+        action = "<cmd>lua require('xxvim.git').blame_line()<cr>";
         options.desc = "Git Blame Line";
       }
       {
@@ -58,7 +58,7 @@
       {
         mode = "n";
         key = "<leader>gd";
-        action = "<cmd>lua _G.xxvim_workflow.git_diff_this()<cr>";
+        action = "<cmd>lua require('xxvim.git').diff_this()<cr>";
         options.desc = "Git Diff (Hunks)";
       }
       {

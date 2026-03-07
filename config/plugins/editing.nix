@@ -1,7 +1,9 @@
 { ... }:
 {
   config = {
-    extraConfigLua = builtins.readFile ../lua/xxvim/workflow.lua;
+    extraConfigLua = ''
+      require("xxvim.workflow")
+    '';
 
     plugins.yanky = {
       enable = true;

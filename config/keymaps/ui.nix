@@ -4,79 +4,79 @@
       {
         mode = "n";
         key = "<leader>uf";
-        action = "<cmd>lua xxvim_toggle_autoformat_global()<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_autoformat_global()<cr>";
         options.desc = "Toggle Auto Format (Global)";
       }
       {
         mode = "n";
         key = "<leader>uF";
-        action = "<cmd>lua xxvim_toggle_autoformat_buffer()<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_autoformat_buffer()<cr>";
         options.desc = "Toggle Auto Format (Buffer)";
       }
       {
         mode = "n";
         key = "<leader>uh";
-        action = "<cmd>lua xxvim_toggle_inlay_hints()<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_inlay_hints()<cr>";
         options.desc = "Toggle Inlay Hints";
       }
       {
         mode = "n";
         key = "<leader>ud";
-        action = "<cmd>lua xxvim_toggle_diagnostics()<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_diagnostics()<cr>";
         options.desc = "Toggle Diagnostics";
       }
       {
         mode = "n";
         key = "<leader>ul";
-        action = "<cmd>lua xxvim_toggle_option('number', true, false, 'wo')<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_option('number', true, false, 'wo')<cr>";
         options.desc = "Toggle Line Numbers";
       }
       {
         mode = "n";
         key = "<leader>uL";
-        action = "<cmd>lua xxvim_toggle_option('relativenumber', true, false, 'wo')<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_option('relativenumber', true, false, 'wo')<cr>";
         options.desc = "Toggle Relative Number";
       }
       {
         mode = "n";
         key = "<leader>uw";
-        action = "<cmd>lua xxvim_toggle_option('wrap', true, false, 'wo')<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_option('wrap', true, false, 'wo')<cr>";
         options.desc = "Toggle Wrap";
       }
       {
         mode = "n";
         key = "<leader>us";
-        action = "<cmd>lua xxvim_toggle_option('spell', true, false, 'wo')<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_option('spell', true, false, 'wo')<cr>";
         options.desc = "Toggle Spelling";
       }
       {
         mode = "n";
         key = "<leader>uc";
-        action = "<cmd>lua xxvim_toggle_conceal()<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_conceal()<cr>";
         options.desc = "Toggle Conceal Level";
       }
       {
         mode = "n";
         key = "<leader>uA";
-        action = "<cmd>lua xxvim_toggle_tabline()<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_tabline()<cr>";
         options.desc = "Toggle Tabline";
       }
       {
         mode = "n";
         key = "<leader>ub";
-        action = "<cmd>lua xxvim_toggle_background()<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_background()<cr>";
         options.desc = "Toggle Dark Background";
       }
       {
         mode = "n";
         key = "<leader>ug";
-        action = "<cmd>lua xxvim_toggle_indent_guides()<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_indent_guides()<cr>";
         options.desc = "Toggle Indent Guides";
       }
       {
         mode = "n";
         key = "<leader>uT";
-        action = "<cmd>lua xxvim_toggle_treesitter_highlight()<cr>";
+        action = "<cmd>lua require('xxvim.toggle').toggle_treesitter_highlight()<cr>";
         options.desc = "Toggle Treesitter Highlight";
       }
       {

@@ -1,3 +1,9 @@
+let
+  keymapGroups = builtins.fromJSON (builtins.readFile ../meta/keymap-groups.json);
+  whichKeyGroupsLua = builtins.concatStringsSep "\n" (
+    map (item: ''          { "${item.prefix}", group = "${item.group}" },'') keymapGroups
+  );
+in
 { ... }:
 {
   config = {
@@ -43,18 +49,7 @@
       };
       luaConfig.post = ''
         require("which-key").add({
-          { "<leader>b", group = "buffer" },
-          { "<leader>c", group = "code" },
-          { "<leader>d", group = "debug" },
-          { "<leader>f", group = "file/find" },
-          { "<leader>g", group = "git" },
-          { "<leader>q", group = "quit/session" },
-          { "<leader>r", group = "run/build" },
-          { "<leader>s", group = "search" },
-          { "<leader>t", group = "terminal/tests" },
-          { "<leader>u", group = "ui/toggles" },
-          { "<leader>w", group = "windows" },
-          { "<leader>x", group = "diagnostics/quickfix" },
+${whichKeyGroupsLua}
         })
       '';
     };

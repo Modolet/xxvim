@@ -16,7 +16,7 @@
       {
         mode = "n";
         key = "<leader>sg";
-        action = "<cmd>lua Snacks.picker.grep({ cwd = xxvim_root() })<cr>";
+        action = "<cmd>lua Snacks.picker.grep({ cwd = require('xxvim.root').project_root() })<cr>";
         options.desc = "Grep (Root Dir)";
       }
       {
@@ -88,7 +88,7 @@
       {
         mode = [ "n" "v" ];
         key = "<leader>sw";
-        action = "<cmd>lua Snacks.picker.grep_word({ cwd = xxvim_root() })<cr>";
+        action = "<cmd>lua Snacks.picker.grep_word({ cwd = require('xxvim.root').project_root() })<cr>";
         options.desc = "Visual selection or word (Root Dir)";
       }
       {

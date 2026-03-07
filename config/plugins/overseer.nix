@@ -15,6 +15,8 @@
     };
     };
 
-    extraConfigLua = builtins.readFile ../lua/xxvim/tools.lua;
+    extraConfigLua = ''
+      require("xxvim.tools")
+    '';
   };
 }

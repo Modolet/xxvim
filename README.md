@@ -30,6 +30,8 @@ nix develop
 
 ## 默认按键
 
+按键分组标签与 which-key 分组来源已统一到 `config/meta/keymap-groups.json:1`，后续调整 `<leader>` 顶层分组时应优先修改该文件。
+
 ### 文件与搜索
 - `<leader>e`：打开 explorer
 - `<leader><space>`：智能查找文件

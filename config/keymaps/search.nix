@@ -16,7 +16,7 @@
       {
         mode = "n";
         key = "<leader>/";
-        action = "<cmd>lua Snacks.picker.grep({ cwd = xxvim_root() })<cr>";
+        action = "<cmd>lua Snacks.picker.grep({ cwd = require('xxvim.root').project_root() })<cr>";
         options.desc = "Grep (Root Dir)";
       }
       {
@@ -34,7 +34,7 @@
       {
         mode = "n";
         key = "<leader>e";
-        action = "<cmd>lua require('snacks').explorer.open({ cwd = xxvim_root() })<cr>";
+        action = "<cmd>lua require('snacks').explorer.open({ cwd = require('xxvim.root').project_root() })<cr>";
         options.desc = "Explorer (Root Dir)";
       }
       {
@@ -46,13 +46,13 @@
       {
         mode = "n";
         key = "<leader><space>";
-        action = "<cmd>lua Snacks.picker.files({ cwd = xxvim_root() })<cr>";
+        action = "<cmd>lua Snacks.picker.files({ cwd = require('xxvim.root').project_root() })<cr>";
         options.desc = "Find Files (Root Dir)";
       }
       {
         mode = "n";
         key = "<leader>ff";
-        action = "<cmd>lua Snacks.picker.files({ cwd = xxvim_root() })<cr>";
+        action = "<cmd>lua Snacks.picker.files({ cwd = require('xxvim.root').project_root() })<cr>";
         options.desc = "Find Files (Root Dir)";
       }
       {
@@ -64,7 +64,7 @@
       {
         mode = "n";
         key = "<leader>fg";
-        action = "<cmd>lua Snacks.picker.git_files({ cwd = xxvim_root() })<cr>";
+        action = "<cmd>lua Snacks.picker.git_files({ cwd = require('xxvim.root').project_root() })<cr>";
         options.desc = "Find Files (git-files)";
       }
       {

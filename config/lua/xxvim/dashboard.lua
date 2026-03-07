@@ -10,10 +10,10 @@ if has_alpha and has_dashboard then
     "          ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝           ",
   }
   dashboard.section.buttons.val = {
-    dashboard.button("f", "  Find File", "<cmd>lua Snacks.picker.files({ cwd = xxvim_root() })<cr>"),
+    dashboard.button("f", "  Find File", "<cmd>lua Snacks.picker.files({ cwd = require('xxvim.root').project_root() })<cr>"),
     dashboard.button("n", "  New File", "<cmd>ene<cr>"),
     dashboard.button("p", "  Projects", "<cmd>XxvimRecentProjects<cr>"),
-    dashboard.button("g", "  Find Text", "<cmd>lua Snacks.picker.grep({ cwd = xxvim_root() })<cr>"),
+    dashboard.button("g", "  Find Text", "<cmd>lua Snacks.picker.grep({ cwd = require('xxvim.root').project_root() })<cr>"),
     dashboard.button("r", "  Recent Files", "<cmd>lua Snacks.picker.recent()<cr>"),
     dashboard.button("q", "  Quit", "<cmd>qa<cr>"),
   }
