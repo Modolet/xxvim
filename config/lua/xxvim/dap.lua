@@ -4,6 +4,20 @@ if not ok_dap then
   return
 end
 
+local function run_with_args()
+  local config = dap.configurations[vim.bo.filetype] and dap.configurations[vim.bo.filetype][1]
+  if not config then
+    vim.notify("No DAP configuration for current filetype", vim.log.levels.WARN)
+    return
+  end
+  local args = vim.fn.input("Args: ")
+  local cfg = vim.deepcopy(config)
+  cfg.args = args ~= "" and vim.split(args, " ") or {}
+  dap.run(cfg)
+end
+
+_G.xxvim_dap_run_with_args = run_with_args
+
 if ok_dapui then
   dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open({})
