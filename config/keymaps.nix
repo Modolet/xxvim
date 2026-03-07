@@ -792,7 +792,7 @@
       {
         mode = "n";
         key = "<leader>da";
-        action = "<cmd>lua require('dap').continue({ before = function() require('dap').set_breakpoint(vim.fn.input('Args: ')) end })<cr>";
+        action = "<cmd>lua xxvim_dap_run_with_args()<cr>";
         options.desc = "Run with Args";
       }
       {
