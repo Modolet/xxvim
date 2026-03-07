@@ -63,6 +63,15 @@ function workflow.toggle_lazygit()
   workflow.toggle_float_terminal("lazygit")
 end
 
+function workflow.other_buffer()
+  vim.cmd("buffer #")
+end
+
+function workflow.delete_buffer_and_window()
+  vim.cmd("bdelete")
+  pcall(vim.cmd, "close")
+end
+
 function workflow.close_other_buffers()
   local current = vim.api.nvim_get_current_buf()
   for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
@@ -141,21 +150,32 @@ function workflow.git_diff_this()
   vim.cmd("Gitsigns diffthis")
 end
 
+function workflow.toggle_zoom()
+  if vim.t.xxvim_zoom_win and vim.api.nvim_win_is_valid(vim.t.xxvim_zoom_win) then
+    vim.cmd("tabclose")
+    vim.t.xxvim_zoom_win = nil
+    return
+  end
+  vim.cmd("tab split")
+  vim.t.xxvim_zoom_win = vim.api.nvim_get_current_win()
+end
+
 function workflow.setup_commands()
   vim.api.nvim_create_user_command("XxvimFloatTerm", function(opts)
     workflow.toggle_float_terminal(opts.args ~= "" and opts.args or nil)
   end, { nargs = "*" })
-
   vim.api.nvim_create_user_command("XxvimBottomTerm", function(opts)
     workflow.toggle_bottom_terminal(opts.args ~= "" and opts.args or nil)
   end, { nargs = "*" })
-
   vim.api.nvim_create_user_command("XxvimSessionSave", workflow.save_session, {})
   vim.api.nvim_create_user_command("XxvimSessionRestore", workflow.restore_session, {})
   vim.api.nvim_create_user_command("XxvimRecentProjects", workflow.recent_projects, {})
   vim.api.nvim_create_user_command("XxvimLazyGit", workflow.toggle_lazygit, {})
   vim.api.nvim_create_user_command("XxvimSessionLoadLast", workflow.session_load_last, {})
   vim.api.nvim_create_user_command("XxvimSessionLoadCwd", workflow.session_load_cwd, {})
+  vim.api.nvim_create_user_command("XxvimOtherBuffer", workflow.other_buffer, {})
+  vim.api.nvim_create_user_command("XxvimDeleteBufferAndWindow", workflow.delete_buffer_and_window, {})
+  vim.api.nvim_create_user_command("XxvimToggleZoom", workflow.toggle_zoom, {})
 end
 
 workflow.setup_commands()
