@@ -77,6 +77,7 @@
     extraConfigLuaPre = ''
       vim.g.mapleader = " "
       vim.g.maplocalleader = ","
+      vim.g.xxvim_start_time = vim.uv.hrtime()
     '';
   };
 }

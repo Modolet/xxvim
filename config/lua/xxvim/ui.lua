@@ -2,13 +2,12 @@ local has_alpha, alpha = pcall(require, "alpha")
 local has_dashboard, dashboard = pcall(require, "alpha.themes.dashboard")
 if has_alpha and has_dashboard then
   dashboard.section.header.val = {
-    "██   ██ ██   ██ ██    ██ ██ ███    ███",
-    " ██ ██   ██ ██  ██    ██ ██ ████  ████",
-    "  ███     ███   ██    ██ ██ ██ ████ ██",
-    " ██ ██   ██ ██   ██  ██  ██ ██  ██  ██",
-    "██   ██ ██   ██   ████   ██ ██      ██",
-    "",
-    "              xxvim / LazyVim style",
+    "          ██╗  ██╗██╗  ██╗██╗   ██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗          Z",
+    "          ╚██╗██╔╝╚██╗██╔╝╚██╗ ██╔╝╚██╗██╔╝██║   ██║██║████╗ ████║      Z    ",
+    "           ╚███╔╝  ╚███╔╝  ╚████╔╝  ╚███╔╝ ██║   ██║██║██╔████╔██║   z       ",
+    "           ██╔██╗  ██╔██╗   ╚██╔╝   ██╔██╗ ╚██╗ ██╔╝██║██║╚██╔╝██║ z         ",
+    "          ██╔╝ ██╗██╔╝ ██╗   ██║   ██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║           ",
+    "          ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝           ",
   }
   dashboard.section.buttons.val = {
     dashboard.button("f", "  Find file", "<cmd>lua Snacks.picker.files()<cr>"),
@@ -16,10 +15,30 @@ if has_alpha and has_dashboard then
     dashboard.button("r", "  Recent files", "<cmd>lua Snacks.picker.recent()<cr>"),
     dashboard.button("g", "  Find text", "<cmd>lua Snacks.picker.grep()<cr>"),
     dashboard.button("p", "  Projects", "<cmd>XxvimRecentProjects<cr>"),
-    dashboard.button("c", "  Config", "<cmd>lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})<cr>"),
     dashboard.button("q", "  Quit", "<cmd>qa<cr>"),
   }
-  dashboard.section.footer.val = "Built with nixvim + flake"
+
+  local started = vim.g.xxvim_start_time or vim.uv.hrtime()
+  local elapsed = (vim.uv.hrtime() - started) / 1000000
+  dashboard.section.footer.val = string.format("⚡ 启动时间 %.2f ms", elapsed)
+
+  for _, button in ipairs(dashboard.section.buttons.val) do
+    button.opts = button.opts or {}
+    button.opts.position = "center"
+  end
+  dashboard.section.header.opts.position = "center"
+  dashboard.section.buttons.opts.position = "center"
+  dashboard.section.footer.opts.position = "center"
+
+  dashboard.config.layout = {
+    { type = "padding", val = 6 },
+    dashboard.section.header,
+    { type = "padding", val = 2 },
+    dashboard.section.buttons,
+    { type = "padding", val = 2 },
+    dashboard.section.footer,
+  }
+
   alpha.setup(dashboard.config)
 end
 
