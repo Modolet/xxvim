@@ -18,7 +18,7 @@
       {
         mode = "n";
         key = "<leader>K";
-        action = "<cmd>norm! K<cr>";
+        action = "K";
         options.desc = "Keywordprg";
       }
       {
@@ -300,7 +300,7 @@
       {
         mode = "n";
         key = "<leader>gb";
-        action = "<cmd>lua xxvim_workflow.git_blame_line()<cr>";
+        action = "<cmd>lua _G.xxvim_workflow.git_blame_line()<cr>";
         options.desc = "Git Blame Line";
       }
       {
@@ -318,7 +318,7 @@
       {
         mode = "n";
         key = "<leader>gd";
-        action = "<cmd>lua xxvim_workflow.git_diff_this()<cr>";
+        action = "<cmd>lua _G.xxvim_workflow.git_diff_this()<cr>";
         options.desc = "Git Diff (Hunks)";
       }
       {
@@ -1014,7 +1014,7 @@
       {
         mode = "n";
         key = "<leader>bo";
-        action = "<cmd>lua xxvim_workflow.close_other_buffers()<cr>";
+        action = "<cmd>lua _G.xxvim_workflow.close_other_buffers()<cr>";
         options.desc = "Delete Other Buffers";
       }
       {
