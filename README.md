@@ -10,6 +10,7 @@
 - 集成 `snacks.nvim` 的 picker / explorer / diagnostics / symbols / recent / git 能力
 - 集成 `trouble.nvim` 用于诊断与问题列表
 - 集成 `nvim-dap`、`nvim-dap-ui`、`nvim-dap-virtual-text`
+- 提供浮动终端、底部终端、session 保存恢复、最近项目切换
 - 内置 Rust / C / C++ / JSON / CMake / Python / Markdown / Nix / TOML 开发工具
 
 ## 运行
@@ -29,20 +30,28 @@ nix develop
 ## 默认按键
 
 ### 文件与搜索
-
 - `<leader>e`：打开 explorer
 - `<leader><space>`：智能查找文件
 - `<leader>ff`：查找文件
 - `<leader>fg`：全文搜索
 - `<leader>fb`：搜索缓冲区
 - `<leader>fr`：最近文件
+- `<leader>fp`：最近项目
 - `<leader>sd`：工作区诊断
 - `<leader>sD`：当前缓冲区诊断
 - `<leader>ss`：文档符号
 - `<leader>sS`：工作区符号
 
-### LSP
+### Git
+- `<leader>gc` / `<leader>gC`：git log / 当前行 log
+- `<leader>gs`：git status
+- `<leader>gB`：当前行 blame
+- `<leader>gd`：diff 当前文件
+- `]h` / `[h`：跳到下一个 / 上一个 hunk
+- `<leader>ghs` / `<leader>ghr`：stage / reset hunk
+- `<leader>ghp`：预览 hunk
 
+### LSP
 - `gd` / `gD` / `gr` / `gI` / `gt`：定义、声明、引用、实现、类型定义
 - `K`：悬浮文档
 - `<leader>ca`：代码动作
@@ -52,7 +61,6 @@ nix develop
 - `<leader>xx`：Trouble 诊断列表
 
 ### DAP
-
 - `<leader>db`：切换断点
 - `<leader>dB`：条件断点
 - `<leader>dl`：日志断点
@@ -62,3 +70,11 @@ nix develop
 - `<leader>du`：切换 DAP UI
 - `<leader>dR`：REPL
 - `<leader>dt`：终止调试
+
+### Terminal / Window / Session
+- `<leader>tf` / `<leader>tb`：浮动终端 / 底部终端
+- `<leader>ws` / `<leader>wv`：水平 / 垂直分屏
+- `<leader>wd` / `<leader>wo` / `<leader>w=`：关闭窗口 / 仅保留当前 / 均分窗口
+- `<S-h>` / `<S-l>`：上一个 / 下一个 buffer
+- `<leader>bd` / `<leader>bo`：删除当前 / 其他 buffer
+- `<leader>qs` / `<leader>qr`：保存 / 恢复 session

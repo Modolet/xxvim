@@ -15,6 +15,7 @@ if has_alpha and has_dashboard then
     dashboard.button("n", "  New file", "<cmd>ene<cr>"),
     dashboard.button("r", "  Recent files", "<cmd>lua Snacks.picker.recent()<cr>"),
     dashboard.button("g", "  Find text", "<cmd>lua Snacks.picker.grep()<cr>"),
+    dashboard.button("p", "  Projects", "<cmd>XxvimRecentProjects<cr>"),
     dashboard.button("c", "  Config", "<cmd>lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})<cr>"),
     dashboard.button("q", "  Quit", "<cmd>qa<cr>"),
   }
@@ -62,6 +63,10 @@ if has_which_key then
       { "<leader>g", group = "git" },
       { "<leader>s", group = "search/symbol" },
       { "<leader>x", group = "diagnostics" },
+      { "<leader>t", group = "terminal" },
+      { "<leader>w", group = "window" },
+      { "<leader>b", group = "buffer" },
+      { "<leader>q", group = "session" },
     },
   })
 end
