@@ -14,6 +14,17 @@
     plugins.dial.enable = true;
     plugins.inc-rename.enable = true;
 
+    plugins.nvim-autopairs = {
+      enable = true;
+      settings = {
+        check_ts = true;
+        disable_filetype = [ "TelescopePrompt" "snacks_picker_input" ];
+      };
+    };
+
+    plugins.mini-surround.enable = true;
+    plugins.mini-ai.enable = true;
+
     extraConfigLua = builtins.readFile ./lua/xxvim/workflow.lua;
   };
 }

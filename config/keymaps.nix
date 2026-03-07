@@ -263,15 +263,9 @@
       }
       {
         mode = "n";
-        key = "<leader>tf";
+        key = "<leader>T";
         action = "<cmd>XxvimFloatTerm<cr>";
         options.desc = "Float Terminal";
-      }
-      {
-        mode = "n";
-        key = "<leader>tb";
-        action = "<cmd>XxvimBottomTerm<cr>";
-        options.desc = "Bottom Terminal";
       }
       {
         mode = "n";
@@ -326,6 +320,72 @@
         key = "<leader>bo";
         action = "<cmd>lua xxvim_workflow.close_other_buffers()<cr>";
         options.desc = "Delete Other Buffers";
+      }
+      {
+        mode = "n";
+        key = "<leader>tt";
+        action = "<cmd>OverseerToggle<cr>";
+        options.desc = "Task List";
+      }
+      {
+        mode = "n";
+        key = "<leader>tr";
+        action = "<cmd>OverseerRun<cr>";
+        options.desc = "Run Task";
+      }
+      {
+        mode = "n";
+        key = "<leader>tb";
+        action = "<cmd>XxvimBottomTerm<cr>";
+        options.desc = "Bottom Terminal";
+      }
+      {
+        mode = "n";
+        key = "<leader>gg";
+        action = "<cmd>XxvimLazyGit<cr>";
+        options.desc = "LazyGit";
+      }
+      {
+        mode = "n";
+        key = "<leader>tn";
+        action = "<cmd>lua require('neotest').run.run()<cr>";
+        options.desc = "Run Nearest Test";
+      }
+      {
+        mode = "n";
+        key = "<leader>tf";
+        action = "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>";
+        options.desc = "Run Test File";
+      }
+      {
+        mode = "n";
+        key = "<leader>tS";
+        action = "<cmd>lua require('neotest').summary.toggle()<cr>";
+        options.desc = "Test Summary";
+      }
+      {
+        mode = "n";
+        key = "<leader>to";
+        action = "<cmd>lua require('neotest').output.open({ enter = true, auto_close = true })<cr>";
+        options.desc = "Test Output";
+      }
+      {
+        mode = "n";
+        key = "<leader>td";
+        action = "<cmd>lua require('neotest').run.run({ strategy = 'dap' })<cr>";
+        options.desc = "Debug Nearest Test";
+      }
+      {
+        mode = "n";
+        key = "<leader>sl";
+        action = "<cmd>XxvimSessionLoadLast<cr>";
+        options.desc = "Restore Last Session";
+      }
+      {
+        mode = "n";
+        key = "<leader>sL";
+        action = "<cmd>XxvimSessionLoadCwd<cr>";
+        options.desc = "Restore Cwd Session";
       }
       {
         mode = "n";

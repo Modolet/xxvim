@@ -8,6 +8,7 @@
     ./coding.nix
     ./languages.nix
     ./dap.nix
+    ./tools.nix
     ./keymaps.nix
   ];
 
@@ -18,6 +19,10 @@
       luasnip
       trouble-nvim
       nvim-nio
+      neotest
+      neotest-python
+      neotest-rust
+      persistence-nvim
     ];
 
     extraPackages = with pkgs; [
@@ -25,11 +30,14 @@
       fd
       ripgrep
       git
+      lazygit
+      just
       gcc
       gdb
       lldb
       rust-analyzer
       cargo
+      cargo-nextest
       rustc
       clang-tools
       cmake
@@ -40,6 +48,7 @@
       gersemi
       python3
       python3Packages.debugpy
+      python3Packages.pytest
       nodePackages.vscode-langservers-extracted
       nodePackages.prettier
       nodePackages.markdownlint-cli

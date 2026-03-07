@@ -59,6 +59,10 @@ function workflow.toggle_bottom_terminal(command)
   start_terminal(buffer, cmd)
 end
 
+function workflow.toggle_lazygit()
+  workflow.toggle_float_terminal("lazygit")
+end
+
 function workflow.close_other_buffers()
   local current = vim.api.nvim_get_current_buf()
   for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
@@ -81,6 +85,20 @@ function workflow.restore_session()
     vim.notify("Session restored")
   else
     vim.notify("No saved session", vim.log.levels.WARN)
+  end
+end
+
+function workflow.session_load_last()
+  local ok, persistence = pcall(require, "persistence")
+  if ok then
+    persistence.load()
+  end
+end
+
+function workflow.session_load_cwd()
+  local ok, persistence = pcall(require, "persistence")
+  if ok then
+    persistence.load({ last = false })
   end
 end
 
@@ -135,6 +153,9 @@ function workflow.setup_commands()
   vim.api.nvim_create_user_command("XxvimSessionSave", workflow.save_session, {})
   vim.api.nvim_create_user_command("XxvimSessionRestore", workflow.restore_session, {})
   vim.api.nvim_create_user_command("XxvimRecentProjects", workflow.recent_projects, {})
+  vim.api.nvim_create_user_command("XxvimLazyGit", workflow.toggle_lazygit, {})
+  vim.api.nvim_create_user_command("XxvimSessionLoadLast", workflow.session_load_last, {})
+  vim.api.nvim_create_user_command("XxvimSessionLoadCwd", workflow.session_load_cwd, {})
 end
 
 workflow.setup_commands()

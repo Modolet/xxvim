@@ -6,11 +6,12 @@
 
 - 使用 `catppuccin` 主题、dashboard、状态栏、标签栏、git signs、缩进指示
 - 集成 `blink.cmp`、`friendly-snippets`、`blink.compat`
-- 集成 `yanky.nvim`、`dial.nvim`、`inc-rename.nvim`
+- 集成 `yanky.nvim`、`dial.nvim`、`inc-rename.nvim`、`nvim-autopairs`、`mini.surround`、`mini.ai`
 - 集成 `snacks.nvim` 的 picker / explorer / diagnostics / symbols / recent / git 能力
 - 集成 `trouble.nvim` 用于诊断与问题列表
 - 集成 `nvim-dap`、`nvim-dap-ui`、`nvim-dap-virtual-text`
-- 提供浮动终端、底部终端、session 保存恢复、最近项目切换
+- 集成 `nvim-lint`、`overseer.nvim`、`neotest`、`persistence.nvim`
+- 提供浮动终端、底部终端、session 保存恢复、最近项目切换、LazyGit
 - 内置 Rust / C / C++ / JSON / CMake / Python / Markdown / Nix / TOML 开发工具
 
 ## 运行
@@ -25,7 +26,7 @@ nix run .#xxvim
 nix develop
 ```
 
-`nix develop` 会提供与编辑器内基本一致的工具集；但主要交付仍是 `xxvim` 可执行本身，语言服务器、格式化器和调试器也会被打包到编辑器运行环境里。
+`nix develop` 会提供与编辑器内基本一致的工具集；但主要交付仍是 `xxvim` 可执行本身，语言服务器、格式化器、测试工具和调试器也会被打包到编辑器运行环境里。
 
 ## 默认按键
 
@@ -45,13 +46,14 @@ nix develop
 ### Git
 - `<leader>gc` / `<leader>gC`：git log / 当前行 log
 - `<leader>gs`：git status
+- `<leader>gg`：LazyGit
 - `<leader>gB`：当前行 blame
 - `<leader>gd`：diff 当前文件
 - `]h` / `[h`：跳到下一个 / 上一个 hunk
 - `<leader>ghs` / `<leader>ghr`：stage / reset hunk
 - `<leader>ghp`：预览 hunk
 
-### LSP
+### LSP / Diagnostics
 - `gd` / `gD` / `gr` / `gI` / `gt`：定义、声明、引用、实现、类型定义
 - `K`：悬浮文档
 - `<leader>ca`：代码动作
@@ -59,6 +61,15 @@ nix develop
 - `<leader>cf`：格式化
 - `[d` / `]d`：前后跳转诊断
 - `<leader>xx`：Trouble 诊断列表
+
+### Tests / Tasks
+- `<leader>tn`：运行最近测试
+- `<leader>tf`：运行当前文件测试
+- `<leader>td`：使用 DAP 调试最近测试
+- `<leader>to`：打开测试输出
+- `<leader>tS`：切换测试摘要
+- `<leader>tr`：运行 Overseer 任务
+- `<leader>tt`：切换任务列表
 
 ### DAP
 - `<leader>db`：切换断点
@@ -72,9 +83,10 @@ nix develop
 - `<leader>dt`：终止调试
 
 ### Terminal / Window / Session
-- `<leader>tf` / `<leader>tb`：浮动终端 / 底部终端
+- `<leader>T` / `<leader>tb`：浮动终端 / 底部终端
 - `<leader>ws` / `<leader>wv`：水平 / 垂直分屏
 - `<leader>wd` / `<leader>wo` / `<leader>w=`：关闭窗口 / 仅保留当前 / 均分窗口
 - `<S-h>` / `<S-l>`：上一个 / 下一个 buffer
 - `<leader>bd` / `<leader>bo`：删除当前 / 其他 buffer
 - `<leader>qs` / `<leader>qr`：保存 / 恢复 session
+- `<leader>sl` / `<leader>sL`：恢复最后 session / 当前目录 session
