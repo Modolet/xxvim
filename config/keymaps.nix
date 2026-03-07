@@ -24,8 +24,8 @@
       {
         mode = "n";
         key = "<leader>l";
-        action = "<cmd>Lazy<cr>";
-        options.desc = "Lazy";
+        action = "<cmd>checkhealth<cr>";
+        options.desc = "Health";
       }
       {
         mode = "n";
@@ -162,7 +162,7 @@
       {
         mode = "n";
         key = "<leader>.";
-        action = "<cmd>lua Snacks.scratch()<cr>";
+        action = "<cmd>lua require('snacks').scratch.open()<cr>";
         options.desc = "Toggle Scratch Buffer";
       }
       {
@@ -174,13 +174,13 @@
       {
         mode = "n";
         key = "<leader>e";
-        action = "<cmd>lua Snacks.explorer({ cwd = xxvim_root() })<cr>";
+        action = "<cmd>lua require('snacks').explorer.open({ cwd = xxvim_root() })<cr>";
         options.desc = "Explorer (Root Dir)";
       }
       {
         mode = "n";
         key = "<leader>E";
-        action = "<cmd>lua Snacks.explorer({ cwd = vim.uv.cwd() })<cr>";
+        action = "<cmd>lua require('snacks').explorer.open({ cwd = vim.uv.cwd() })<cr>";
         options.desc = "Explorer (cwd)";
       }
       {
@@ -306,7 +306,7 @@
       {
         mode = "n";
         key = "<leader>gB";
-        action = "<cmd>lua Snacks.gitbrowse()<cr>";
+        action = "<cmd>lua require('snacks').gitbrowse.open()<cr>";
         options.desc = "Git Browse";
       }
       {
@@ -432,7 +432,7 @@
       {
         mode = "n";
         key = "<leader>st";
-        action = "<cmd>lua Snacks.picker.todo_comments()<cr>";
+        action = "<cmd>TodoTrouble<cr>";
         options.desc = "Todo";
       }
       {
@@ -768,7 +768,7 @@
       {
         mode = "n";
         key = "<leader>un";
-        action = "<cmd>Noice dismiss<cr>";
+        action = "<cmd>lua require('noice').cmd('dismiss')<cr>";
         options.desc = "Dismiss All Notifications";
       }
       {
@@ -1092,25 +1092,25 @@
       {
         mode = "n";
         key = "<leader>sna";
-        action = "<cmd>Noice all<cr>";
+        action = "<cmd>lua require('noice').cmd('all')<cr>";
         options.desc = "Noice All";
       }
       {
         mode = "n";
         key = "<leader>snd";
-        action = "<cmd>Noice dismiss<cr>";
+        action = "<cmd>lua require('noice').cmd('dismiss')<cr>";
         options.desc = "Dismiss All";
       }
       {
         mode = "n";
         key = "<leader>snh";
-        action = "<cmd>Noice history<cr>";
+        action = "<cmd>lua require('noice').cmd('history')<cr>";
         options.desc = "Noice History";
       }
       {
         mode = "n";
         key = "<leader>snl";
-        action = "<cmd>Noice last<cr>";
+        action = "<cmd>lua require('noice').cmd('last')<cr>";
         options.desc = "Noice Last Message";
       }
       {
