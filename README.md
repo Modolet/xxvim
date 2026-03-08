@@ -20,6 +20,34 @@
 nix run .#xxvim
 ```
 
+这条路径适合调试和快速试用；`packages.${system}.xxvim` 仍然是本仓库的可执行发行版入口。
+
+## 作为 Home Manager 模块使用
+
+日常使用更推荐通过 flake 输出的 `homeModules.default` 接入，这样上层配置可以继续组合、覆盖和管理整套编辑器行为。
+
+```nix
+{
+  inputs.xxvim.url = "github:yourname/xxvim";
+
+  outputs = { nixpkgs, home-manager, xxvim, ... }: {
+    homeConfigurations.me = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      modules = [
+        xxvim.homeModules.default
+      ];
+    };
+  };
+}
+```
+
+## 输出设计
+
+- `config/`：唯一配置真源
+- `homeModules.default`：日常 Home Manager 复用入口
+- `packages.${system}.xxvim`：预组装的调试/启动入口
+- `packages.${system}.default`：`xxvim` 的默认包别名
+
 ## 开发环境
 
 ```bash

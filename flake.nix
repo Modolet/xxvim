@@ -18,6 +18,8 @@
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
+      homeModules.default = import ./config;
+
       packages = forAllSystems (
         system:
         let
