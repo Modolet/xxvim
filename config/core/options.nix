@@ -34,6 +34,7 @@
       tabstop = 2;
       softtabstop = 2;
       laststatus = 3;
+      smoothscroll = true;
     };
 
     globals = {
