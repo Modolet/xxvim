@@ -1,8 +1,49 @@
 { ... }:
 {
   config = {
+    plugins.grug-far = {
+      enable = true;
+      settings = {
+        debounceMs = 300;
+        minSearchChars = 1;
+        maxSearchMatches = 2000;
+        normalModeSearch = false;
+        transient = true;
+        headerMaxWidth = 80;
+        engine = "ripgrep";
+        engines.ripgrep = {
+          path = "rg";
+          showReplaceDiff = true;
+        };
+      };
+    };
+
     extraConfigLua = ''
       require("xxvim.workflow")
+
+      local function xxvim_search_replace()
+        local root = require("xxvim.root").project_root()
+        local grug_far = require("grug-far")
+
+        if vim.fn.mode():match("[vV\22]") then
+          grug_far.with_visual_selection({
+            prefills = {
+              paths = root,
+            },
+          })
+          return
+        end
+
+        local word = vim.fn.expand("<cword>")
+        grug_far.open({
+          prefills = {
+            search = word ~= "" and word or nil,
+            paths = root,
+          },
+        })
+      end
+
+      vim.api.nvim_create_user_command("XxvimSearchReplace", xxvim_search_replace, { range = true })
     '';
 
     plugins.yanky = {

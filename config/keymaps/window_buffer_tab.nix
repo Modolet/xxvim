@@ -100,7 +100,7 @@
       {
         mode = "n";
         key = "<leader>bo";
-        action = "<cmd>lua require('xxvim.buffers').close_other_buffers()<cr>";
+        action = "<cmd>XxvimCloseOtherBuffers<cr>";
         options.desc = "Delete Other Buffers";
       }
       {

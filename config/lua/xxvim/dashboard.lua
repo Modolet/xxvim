@@ -15,7 +15,7 @@ if has_alpha and has_dashboard then
     dashboard.button("p", "  Projects", "<cmd>XxvimRecentProjects<cr>"),
     dashboard.button("g", "  Find Text", "<cmd>lua Snacks.picker.grep({ cwd = require('xxvim.root').project_root() })<cr>"),
     dashboard.button("r", "  Recent Files", "<cmd>lua Snacks.picker.recent()<cr>"),
-    dashboard.button("q", "  Quit", "<cmd>qa<cr>"),
+    dashboard.button("q", "  Quit", "<cmd>XxvimQuitAll<cr>"),
   }
 
   local started = vim.g.xxvim_start_time or vim.uv.hrtime()

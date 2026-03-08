@@ -4,7 +4,7 @@
 
 ## 特性
 
-- 使用 `catppuccin` 主题、dashboard、状态栏、标签栏、git signs、缩进指示
+- 默认使用 `catppuccin` 主题，并兼容由 `Stylix` 接管配色的场景
 - 集成 `blink.cmp`、`friendly-snippets`、`blink.compat`、`copilot.lua`
 - 集成 `yanky.nvim`、`dial.nvim`、`inc-rename.nvim`、`nvim-autopairs`、`mini.surround`、`mini.ai`
 - 集成 `snacks.nvim` 的 picker / explorer / diagnostics / symbols / recent / git 能力
@@ -41,6 +41,16 @@ nix run .#xxvim
 }
 ```
 
+如果你在上层 Home Manager / NixOS 配置里已经启用了 `Stylix`，建议同时打开：
+
+```nix
+{
+  xxvim.theme.stylix.enable = true;
+}
+```
+
+这样 `xxvim` 会停用内置 `catppuccin` 配色接管，并避免给 `lualine` 强制指定 `catppuccin` 主题，让 `Stylix` 统一管理界面颜色。
+
 ## 输出设计
 
 - `config/`：唯一配置真源
@@ -68,6 +78,8 @@ nix develop
 - `<leader>fb`：搜索缓冲区
 - `<leader>fr`：最近文件
 - `<leader>fp`：最近项目
+- `<leader>sr`：Search and Replace（普通模式预填当前词；可视模式预填选区；范围默认为项目根目录）
+- `<leader>sR`：恢复上一次 picker
 - `<leader>sd`：工作区诊断
 - `<leader>sD`：当前缓冲区诊断
 - `<leader>ss`：文档符号

@@ -76,6 +76,18 @@
       {
         mode = "n";
         key = "<leader>sr";
+        action = "<cmd>XxvimSearchReplace<cr>";
+        options.desc = "Search and Replace";
+      }
+      {
+        mode = "v";
+        key = "<leader>sr";
+        action = "<esc><cmd>lua require('grug-far').with_visual_selection({ prefills = { paths = require('xxvim.root').project_root() } })<cr>";
+        options.desc = "Search and Replace";
+      }
+      {
+        mode = "n";
+        key = "<leader>sR";
         action = "<cmd>lua Snacks.picker.resume()<cr>";
         options.desc = "Resume";
       }

@@ -28,7 +28,7 @@
       {
         mode = "n";
         key = "<leader>qq";
-        action = "<cmd>qa<cr>";
+        action = "<cmd>XxvimQuitAll<cr>";
         options.desc = "Quit All";
       }
       {

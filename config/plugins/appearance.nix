@@ -4,7 +4,10 @@ let
     map (item: ''          { "${item.prefix}", group = "${item.group}" },'') keymapGroups
   );
 in
-{ ... }:
+{ lib, config, ... }:
+let
+  useStylix = config.xxvim.theme.stylix.enable;
+in
 {
   config = {
     plugins.web-devicons.enable = true;
@@ -13,10 +16,11 @@ in
       enable = true;
       settings = {
         options = {
-          theme = "catppuccin";
           globalstatus = true;
           section_separators = { left = ""; right = ""; };
           component_separators = { left = "│"; right = "│"; };
+        } // lib.optionalAttrs (!useStylix) {
+          theme = "catppuccin";
         };
       };
     };

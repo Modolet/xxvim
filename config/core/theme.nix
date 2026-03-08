@@ -1,6 +1,9 @@
-{ ... }:
+{ lib, config, ... }:
+let
+  useStylix = config.xxvim.theme.stylix.enable;
+in
 {
-  config = {
+  config = lib.mkIf (!useStylix) {
     colorschemes.catppuccin = {
       enable = true;
       settings = {
