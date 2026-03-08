@@ -164,7 +164,6 @@ ${whichKeyGroupsLua}
           enabled = true;
           timeout = 3000;
         };
-        input.enabled = true;
         quickfile.enabled = true;
         indent.enabled = true;
         statuscolumn.enabled = true;
