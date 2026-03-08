@@ -11,6 +11,7 @@
     "lua/xxvim/session.lua".source = ../lua/xxvim/session.lua;
     "lua/xxvim/buffers.lua".source = ../lua/xxvim/buffers.lua;
     "lua/xxvim/git.lua".source = ../lua/xxvim/git.lua;
+    "lua/xxvim/lsp.lua".source = ../lua/xxvim/lsp.lua;
     "lua/xxvim/dashboard.lua".source = ../lua/xxvim/dashboard.lua;
     "lua/xxvim/workflow.lua".source = ../lua/xxvim/workflow.lua;
   };
