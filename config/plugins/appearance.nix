@@ -62,31 +62,11 @@ ${whichKeyGroupsLua}
     plugins.noice = {
       enable = true;
       settings = {
-        presets.inc_rename = true;
-        cmdline = {
-          enabled = true;
-          view = "cmdline_popup";
-          format.cmdline = {
-            icon = ">";
-            lang = "vim";
-            title = "";
-          };
-        };
-        popupmenu.enabled = true;
-        views.cmdline_popup = {
-          position = {
-            row = 2;
-            col = "50%";
-          };
-          size = {
-            width = 60;
-            height = "auto";
-          };
-          border = {
-            style = "rounded";
-            padding = [ 0 1 ];
-          };
-          win_options.winhighlight = "Normal:Normal,FloatBorder:FloatBorder";
+        presets = {
+          bottom_search = true;
+          command_palette = true;
+          long_message_to_split = true;
+          inc_rename = true;
         };
       };
     };

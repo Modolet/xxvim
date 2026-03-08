@@ -22,7 +22,7 @@
       timeoutlen = 300;
       splitright = true;
       splitbelow = true;
-      inccommand = "split";
+      inccommand = "nosplit";
       cursorline = true;
       scrolloff = 4;
       sidescrolloff = 8;
