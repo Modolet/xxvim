@@ -33,9 +33,5 @@
       enable = true;
       settings = {};
     };
-
-    extraConfigLua = ''
-      require("xxvim.dap")
-    '';
   };
 }

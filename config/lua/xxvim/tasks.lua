@@ -3,6 +3,8 @@ local M = {}
 local root = require("xxvim.root")
 
 local augroup = vim.api.nvim_create_augroup("xxvim_tasks", { clear = true })
+local overseer_ready = false
+local dynamic_keymaps_ready = false
 
 local function current_root(bufnr)
   bufnr = bufnr or 0
@@ -41,6 +43,7 @@ local function project_kind(bufnr)
 end
 
 local function run_overseer(template_name)
+  M.ensure_overseer()
   vim.cmd("OverseerRun " .. template_name:gsub(" ", "\\ "))
 end
 
@@ -272,6 +275,7 @@ function M.refresh_buffer_keymaps(bufnr)
 end
 
 function M.primary()
+  M.ensure_overseer()
   call_profile_action("primary", function()
     vim.cmd("OverseerRun")
   end)
@@ -320,9 +324,25 @@ function M.select()
 end
 
 function M.picker()
+  M.ensure_overseer()
   call_profile_action("picker", function()
     vim.cmd("OverseerRun")
   end)
+end
+
+function M.ensure_overseer()
+  if overseer_ready then
+    return true
+  end
+
+  local ok_overseer = pcall(require, "overseer")
+  if not ok_overseer then
+    return false
+  end
+
+  M.setup_overseer_templates()
+  overseer_ready = true
+  return true
 end
 
 function M.setup_overseer_templates()
@@ -430,16 +450,21 @@ function M.setup_overseer_templates()
 end
 
 function M.setup_dynamic_keymaps()
+  if dynamic_keymaps_ready then
+    return
+  end
+
   vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "DirChanged" }, {
     group = augroup,
     callback = function(event)
       M.refresh_buffer_keymaps(event.buf)
     end,
   })
+
+  dynamic_keymaps_ready = true
 end
 
 function M.setup()
-  M.setup_overseer_templates()
   M.setup_dynamic_keymaps()
 end
 

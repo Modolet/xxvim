@@ -27,6 +27,7 @@ in
 
     plugins.bufferline = {
       enable = true;
+      lazyLoad.settings.event = [ "BufAdd" "BufReadPost" ];
       settings = {
         options = {
           mode = "buffers";
@@ -52,6 +53,7 @@ in
 
     plugins.which-key = {
       enable = true;
+      lazyLoad.settings.event = "VeryLazy";
       settings = {
         preset = "modern";
         delay = 200;
@@ -66,11 +68,13 @@ ${whichKeyGroupsLua}
 
     plugins.notify = {
       enable = true;
+      lazyLoad.settings.event = "VeryLazy";
       settings.timeout = 3000;
     };
 
     plugins.noice = {
       enable = true;
+      lazyLoad.settings.event = "VeryLazy";
       settings = {
         presets = {
           bottom_search = true;
@@ -83,6 +87,7 @@ ${whichKeyGroupsLua}
 
     plugins.trouble = {
       enable = true;
+      lazyLoad.settings.cmd = [ "Trouble" "TodoTrouble" ];
       settings = {
         auto_close = false;
         auto_refresh = true;
@@ -99,11 +104,22 @@ ${whichKeyGroupsLua}
       };
     };
 
-    plugins.todo-comments.enable = true;
-    plugins.flash.enable = true;
+    plugins.todo-comments = {
+      enable = true;
+      lazyLoad.settings = {
+        cmd = [ "TodoTrouble" ];
+        event = [ "BufReadPost" "BufNewFile" ];
+      };
+    };
+
+    plugins.flash = {
+      enable = true;
+      lazyLoad.settings.event = "VeryLazy";
+    };
 
     plugins.gitsigns = {
       enable = true;
+      lazyLoad.settings.event = [ "BufReadPre" "BufNewFile" ];
       settings = {
         current_line_blame = true;
         signs_staged_enable = true;
@@ -112,6 +128,7 @@ ${whichKeyGroupsLua}
 
     plugins.indent-blankline = {
       enable = true;
+      lazyLoad.settings.event = [ "BufReadPost" "BufNewFile" ];
       settings = {
         indent.char = "▏";
         scope.enabled = true;
