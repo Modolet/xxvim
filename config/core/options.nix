@@ -11,6 +11,7 @@
       number = true;
       relativenumber = true;
       mouse = "a";
+      clipboard = "unnamedplus";
       showmode = false;
       breakindent = true;
       undofile = true;
