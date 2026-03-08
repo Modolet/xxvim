@@ -45,6 +45,10 @@
       vim.g.mapleader = " "
       vim.g.maplocalleader = ","
       vim.g.xxvim_start_time = vim.uv.hrtime()
+
+      pcall(function()
+        require("xxvim.root").sync_startup_cwd()
+      end)
     '';
   };
 }
