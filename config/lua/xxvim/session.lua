@@ -80,7 +80,7 @@ function M.recent_projects()
   Snacks.picker.select(projects, {
     prompt = "Recent Projects",
     format_item = function(item)
-      local session_mark = has_session(item) and " 󱂬" or ""
+      local session_mark = has_session(item) and " [session]" or ""
       return vim.fn.fnamemodify(item, ":~") .. session_mark
     end,
   }, function(choice)
