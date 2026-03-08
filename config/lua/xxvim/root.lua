@@ -13,6 +13,8 @@ local root_markers = {
   "CMakeLists.txt",
   "CMakePresets.json",
   "CMakeUserPresets.json",
+  "Doxyfile",
+  "Doxyfile.in",
   "compile_commands.json",
   "package.json",
   "tsconfig.json",

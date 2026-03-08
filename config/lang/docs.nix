@@ -2,6 +2,7 @@
 {
   config = {
     extraPackages = with pkgs; [
+      doxygen
       marksman
       gersemi
       taplo

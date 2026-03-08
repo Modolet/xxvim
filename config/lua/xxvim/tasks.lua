@@ -7,27 +7,20 @@ local augroup = vim.api.nvim_create_augroup("xxvim_tasks", { clear = true })
 local function current_root(bufnr)
   bufnr = bufnr or 0
   local name = vim.api.nvim_buf_get_name(bufnr)
-  local start = name ~= "" and vim.fs.dirname(name) or vim.uv.cwd()
-  local markers = {
-    ".git",
-    "flake.nix",
-    "Cargo.toml",
-    "pyproject.toml",
-    "setup.py",
-    "CMakeLists.txt",
-    "CMakePresets.json",
-    "compile_commands.json",
-    "package.json",
-  }
-  local found = vim.fs.find(markers, { path = start, upward = true })[1]
-  if found then
-    return vim.fs.dirname(found)
-  end
-  return root.project_root()
+  local start = name ~= "" and name or vim.uv.cwd()
+  return root.detect(start)
 end
 
 local function has_marker(project_root, markers)
   return vim.fs.find(markers, { path = project_root, upward = false, limit = 1 })[1] ~= nil
+end
+
+local function find_doxyfile(project_root)
+  local found = vim.fs.find({ "Doxyfile", "Doxyfile.in" }, { path = project_root, upward = false, limit = 1 })[1]
+  if found then
+    return vim.fs.basename(found)
+  end
+  return nil
 end
 
 local function project_kind(bufnr)
@@ -41,11 +34,14 @@ local function project_kind(bufnr)
   if has_marker(project_root, { "pyproject.toml", "uv.lock", "setup.py", "requirements.txt" }) then
     return "python", project_root
   end
+  if has_marker(project_root, { "Doxyfile", "Doxyfile.in" }) then
+    return "doxygen", project_root
+  end
   return "generic", project_root
 end
 
 local function run_overseer(template_name)
-  vim.cmd(("OverseerRun %s"):format(template_name))
+  vim.cmd("OverseerRun " .. template_name:gsub(" ", "\\ "))
 end
 
 local function run_command(command)
@@ -177,6 +173,30 @@ function M.get_profile(kind)
         ["<leader>rd"] = { action = "debug", desc = "CMake Debug" },
         ["<leader>rs"] = { action = "select", desc = "CMake Launch Target" },
         ["<leader>rR"] = { action = "picker", desc = "CMake Build Target" },
+      },
+    },
+    doxygen = {
+      label = "doxygen",
+      group = "run/build (doxygen)",
+      actions = {
+        primary = function()
+          run_overseer("doxygen generate")
+        end,
+        check = function()
+          run_overseer("doxygen generate")
+        end,
+        build = function()
+          run_overseer("doxygen generate")
+        end,
+        picker = function()
+          vim.cmd("OverseerRun")
+        end,
+      },
+      mappings = {
+        ["<leader>rc"] = { action = "check", desc = "Doxygen Generate" },
+        ["<leader>rb"] = { action = "build", desc = "Doxygen Generate" },
+        ["<leader>rr"] = { action = "primary", desc = "Doxygen Generate" },
+        ["<leader>rR"] = { action = "picker", desc = "Doxygen Tasks" },
       },
     },
     generic = {
@@ -375,6 +395,20 @@ function M.setup_overseer_templates()
       cmd = { "uv" },
       args = { "run", "pytest" },
       condition = { filetype = { "python" } },
+    },
+    {
+      name = "doxygen generate",
+      cmd = { "doxygen" },
+      args = function()
+        local doxyfile = find_doxyfile(current_root())
+        return doxyfile and { doxyfile } or {}
+      end,
+      condition = {
+        callback = function(search)
+          local project_root = current_root(search.bufnr)
+          return find_doxyfile(project_root) ~= nil
+        end,
+      },
     },
   }
 

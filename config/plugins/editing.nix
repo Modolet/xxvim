@@ -38,6 +38,18 @@
       };
     };
 
+    plugins.neogen = {
+      enable = true;
+      keymaps.generate = "<leader>cN";
+      settings = {
+        snippet_engine = "luasnip";
+        languages = {
+          c.template.annotation_convention = "doxygen";
+          cpp.template.annotation_convention = "doxygen";
+        };
+      };
+    };
+
     plugins.grug-far = {
       enable = true;
       settings = {
