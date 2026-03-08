@@ -3,12 +3,6 @@
   config = {
     plugins.overseer = {
       enable = true;
-      lazyLoad.settings.cmd = [
-        "OverseerRun"
-        "OverseerToggle"
-        "OverseerTaskAction"
-        "OverseerQuickAction"
-      ];
       settings = {
         dap = true;
         strategy = "toggleterm";
@@ -23,16 +17,6 @@
 
     plugins.cmake-tools = {
       enable = true;
-      lazyLoad.settings.cmd = [
-        "CMakeGenerate"
-        "CMakeBuild"
-        "CMakeRun"
-        "CMakeRunTest"
-        "CMakeDebug"
-        "CMakeSelectBuildPreset"
-        "CMakeSelectLaunchTarget"
-        "CMakeSelectBuildTarget"
-      ];
       settings = {
         cmake_build_directory = "out/\${variant:buildType}";
         cmake_regenerate_on_save = true;
