@@ -2,16 +2,52 @@ local M = {}
 
 local root = require("xxvim.root")
 
+local persistence_ready = false
+local persistence_augroup = vim.api.nvim_create_augroup("xxvim_persistence", { clear = true })
+
 local function persistence_dir()
   return vim.fn.stdpath("state") .. "/sessions/"
 end
 
 local function session_file_prefix(dir)
-  return persistence_dir() .. vim.fs.normalize(dir):gsub("[\\\\/:]+", "%%")
+  return persistence_dir() .. vim.fs.normalize(dir):gsub("[\\/:]+", "%%")
 end
 
 local function has_session(dir)
   return #vim.fn.glob(session_file_prefix(dir) .. "*.vim", false, true) > 0
+end
+
+function M.ensure_persistence()
+  if persistence_ready then
+    return true, require("persistence")
+  end
+
+  local ok, persistence = pcall(require, "persistence")
+  if not ok then
+    return false
+  end
+
+  persistence.setup({
+    dir = persistence_dir(),
+    options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" },
+  })
+
+  vim.api.nvim_create_autocmd("VimLeavePre", {
+    group = persistence_augroup,
+    callback = function()
+      local ok_save, persistence_module = pcall(require, "persistence")
+      if ok_save then
+        persistence_module.save()
+      end
+    end,
+  })
+
+  persistence_ready = true
+  return true, persistence
+end
+
+function M.setup_persistence()
+  M.ensure_persistence()
 end
 
 function M.save_session()
@@ -31,21 +67,21 @@ function M.restore_session()
 end
 
 function M.load_last()
-  local ok, persistence = pcall(require, "persistence")
+  local ok, persistence = M.ensure_persistence()
   if ok then
     persistence.load({ last = true })
   end
 end
 
 function M.load_cwd()
-  local ok, persistence = pcall(require, "persistence")
+  local ok, persistence = M.ensure_persistence()
   if ok then
     persistence.load({ last = false })
   end
 end
 
 function M.restore_project(dir)
-  local ok, persistence = pcall(require, "persistence")
+  local ok, persistence = M.ensure_persistence()
   local project_dir = root.set_cwd(dir, { global = true, silent = true })
   if ok and has_session(project_dir) then
     persistence.load({ last = false })

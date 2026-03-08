@@ -1,7 +1,6 @@
 local M = {}
 
 local neotest_ready = false
-local persistence_ready = false
 
 function M.ensure_neotest()
   if neotest_ready then
@@ -44,34 +43,6 @@ function M.ensure_neotest()
   return true, neotest
 end
 
-function M.ensure_persistence()
-  if persistence_ready then
-    return true, require("persistence")
-  end
-
-  local ok_persistence, persistence = pcall(require, "persistence")
-  if not ok_persistence then
-    return false
-  end
-
-  persistence.setup({
-    dir = vim.fn.stdpath("state") .. "/sessions/",
-    options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" },
-  })
-
-  vim.api.nvim_create_autocmd("VimLeavePre", {
-    callback = function()
-      local ok, persistence_module = pcall(require, "persistence")
-      if ok then
-        persistence_module.save()
-      end
-    end,
-  })
-
-  persistence_ready = true
-  return true, persistence
-end
-
 function M.run_nearest()
   local ok, neotest = M.ensure_neotest()
   if ok then
@@ -105,10 +76,6 @@ function M.debug_nearest()
   if ok then
     neotest.run.run({ strategy = "dap" })
   end
-end
-
-function M.setup()
-  M.ensure_persistence()
 end
 
 return M

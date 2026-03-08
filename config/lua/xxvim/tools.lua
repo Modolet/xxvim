@@ -1,15 +1,15 @@
 local root = require("xxvim.root")
 local toggle = require("xxvim.toggle")
-local testing = require("xxvim.testing")
+local session = require("xxvim.session")
 local tasks = require("xxvim.tasks")
 
 root.setup_commands()
-testing.setup()
+session.setup_persistence()
 tasks.setup()
 
 return {
   root = root,
   toggle = toggle,
-  testing = testing,
+  session = session,
   tasks = tasks,
 }
