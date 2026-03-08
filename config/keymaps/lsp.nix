@@ -160,8 +160,9 @@
       {
         mode = "n";
         key = "<leader>cr";
-        action = ":IncRename ";
+        action = "<cmd>lua require('xxvim.lsp').rename()<cr>";
         options.desc = "Rename";
+        options.silent = true;
       }
       {
         mode = "n";
