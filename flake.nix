@@ -18,7 +18,13 @@
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-      homeModules.default = import ./config;
+      homeModules.default = {
+        imports = [
+          nixvim.homeManagerModules.nixvim
+          ./config
+        ];
+      };
+      homeManagerModules.default = self.homeModules.default;
 
       packages = forAllSystems (
         system:

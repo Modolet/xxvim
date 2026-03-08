@@ -51,6 +51,8 @@ nix run .#xxvim
 
 这样 `xxvim` 会停用内置 `catppuccin` 配色接管，并避免给 `lualine` 强制指定 `catppuccin` 主题，让 `Stylix` 统一管理界面颜色。
 
+`homeModules.default` 已经自带 `nixvim` 的 Home Manager 包装层，上层只需要导入这一个模块即可。
+
 ## 输出设计
 
 - `config/`：唯一配置真源
