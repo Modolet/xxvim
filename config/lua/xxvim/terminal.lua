@@ -33,6 +33,9 @@ local function is_valid_win(window)
   return window and vim.api.nvim_win_is_valid(window)
 end
 
+local open_window
+local setup_terminal_keymaps
+
 local function reset_terminal(name)
   local terminal = terminals[name]
   terminal.win = nil
@@ -59,13 +62,24 @@ local function close_terminal_window(name)
   if is_valid_win(terminal.win) then
     pcall(vim.api.nvim_win_close, terminal.win, true)
   end
-  if is_valid_buf(terminal.buf) then
-    pcall(vim.api.nvim_buf_delete, terminal.buf, { force = true })
-  end
-  reset_terminal(name)
+  terminal.win = nil
 end
 
-local function setup_terminal_keymaps(buffer, name)
+local function reopen_terminal(name)
+  local terminal = terminals[name]
+  if not is_valid_buf(terminal.buf) then
+    reset_terminal(name)
+    return false
+  end
+
+  terminal.win = open_window(terminal.buf, terminal.layout)
+  setup_terminal_keymaps(terminal.buf, name)
+  vim.api.nvim_set_current_win(terminal.win)
+  vim.cmd("startinsert")
+  return true
+end
+
+setup_terminal_keymaps = function(buffer, name)
   local function map(mode, lhs, rhs, desc)
     vim.keymap.set(mode, lhs, rhs, {
       buffer = buffer,
@@ -84,7 +98,7 @@ local function setup_terminal_keymaps(buffer, name)
   end, "Close Terminal")
 end
 
-local function open_window(buffer, layout)
+open_window = function(buffer, layout)
   if layout == "bottom" then
     vim.cmd("botright 15split")
     local window = vim.api.nvim_get_current_win()
@@ -116,7 +130,7 @@ local function spawn_terminal(name, command)
   terminal.buf = buffer
   terminal.command = cmd
 
-  vim.bo[buffer].bufhidden = "wipe"
+  vim.bo[buffer].bufhidden = "hide"
   vim.bo[buffer].filetype = "terminal"
 
   terminal.win = open_window(buffer, terminal.layout)
@@ -142,10 +156,15 @@ end
 
 local function toggle_terminal(name, command)
   local terminal = terminals[name]
-  if is_valid_win(terminal.win) or is_valid_buf(terminal.buf) then
-    close_terminal(name)
+  if is_valid_win(terminal.win) then
+    close_terminal_window(name)
     return
   end
+
+  if is_valid_buf(terminal.buf) and reopen_terminal(name) then
+    return
+  end
+
   spawn_terminal(name, command)
 end
 
