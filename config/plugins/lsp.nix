@@ -34,8 +34,13 @@
       enable = true;
       inlayHints = true;
       onAttach = ''
-        local map = function(keys, func, desc, mode)
-          vim.keymap.set(mode or "n", keys, func, { buffer = bufnr, desc = desc })
+        local map = function(keys, func, desc, mode, opts)
+          vim.keymap.set(
+            mode or "n",
+            keys,
+            func,
+            vim.tbl_extend("force", { buffer = bufnr, desc = desc }, opts or {})
+          )
         end
 
         map("gd", vim.lsp.buf.definition, "Goto Definition")
@@ -46,7 +51,9 @@
         map("K", vim.lsp.buf.hover, "Hover")
         map("<C-k>", vim.lsp.buf.signature_help, "Signature Help")
         map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "v" })
-        map("<leader>cr", vim.lsp.buf.rename, "Rename")
+        map("<leader>cr", function()
+          return ":" .. require("inc_rename").config.cmd_name .. " " .. vim.fn.expand("<cword>")
+        end, "Rename", nil, { expr = true })
         map("<leader>cR", function() Snacks.picker.lsp_references() end, "References Picker")
         map("<leader>cf", function()
           require("conform").format({ async = true, lsp_format = "fallback" })

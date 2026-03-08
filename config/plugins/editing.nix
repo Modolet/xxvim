@@ -16,7 +16,12 @@
     plugins.comment.enable = true;
     plugins.sleuth.enable = true;
     plugins.dial.enable = true;
-    plugins.inc-rename.enable = true;
+    plugins.inc-rename = {
+      enable = true;
+      settings = {
+        input_buffer_type = "snacks";
+      };
+    };
 
     plugins.nvim-autopairs = {
       enable = true;

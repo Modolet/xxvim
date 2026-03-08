@@ -159,12 +159,6 @@
       }
       {
         mode = "n";
-        key = "<leader>cr";
-        action = ":IncRename ";
-        options.desc = "Rename";
-      }
-      {
-        mode = "n";
         key = "gD";
         action = "<cmd>lua vim.lsp.buf.declaration()<cr>";
         options.desc = "Goto Declaration";
