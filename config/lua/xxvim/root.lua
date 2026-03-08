@@ -11,6 +11,8 @@ local root_markers = {
   "setup.cfg",
   "requirements.txt",
   "CMakeLists.txt",
+  "CMakePresets.json",
+  "CMakeUserPresets.json",
   "compile_commands.json",
   "package.json",
   "tsconfig.json",
