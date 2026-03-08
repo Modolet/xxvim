@@ -3,6 +3,7 @@
   config = {
     extraPlugins = with pkgs.vimPlugins; [
       blink-compat
+      copilot-lua
       luasnip
     ];
 
@@ -12,7 +13,11 @@
         keymap = {
           preset = "default";
           "<C-space>" = [ "show" "show_documentation" "hide_documentation" ];
+          "<C-j>" = [ "select_next" "fallback" ];
+          "<C-k>" = [ "select_prev" "fallback" ];
           "<CR>" = [ "accept" "fallback" ];
+          "<Tab>" = [ "snippet_forward" "fallback" ];
+          "<S-Tab>" = [ "snippet_backward" "fallback" ];
         };
         appearance = {
           use_nvim_cmp_as_default = true;
@@ -45,6 +50,26 @@
         };
         snippets.preset = "luasnip";
         sources.default = [ "lsp" "path" "snippets" "buffer" ];
+      };
+    };
+
+    plugins.copilot-lua = {
+      enable = true;
+      settings = {
+        panel.enabled = false;
+        suggestion = {
+          enabled = true;
+          auto_trigger = true;
+          hide_during_completion = true;
+          keymap = {
+            accept = "<M-l>";
+            accept_word = false;
+            accept_line = false;
+            next = false;
+            prev = false;
+            dismiss = false;
+          };
+        };
       };
     };
 

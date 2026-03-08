@@ -5,7 +5,7 @@
 ## 特性
 
 - 使用 `catppuccin` 主题、dashboard、状态栏、标签栏、git signs、缩进指示
-- 集成 `blink.cmp`、`friendly-snippets`、`blink.compat`
+- 集成 `blink.cmp`、`friendly-snippets`、`blink.compat`、`copilot.lua`
 - 集成 `yanky.nvim`、`dial.nvim`、`inc-rename.nvim`、`nvim-autopairs`、`mini.surround`、`mini.ai`
 - 集成 `snacks.nvim` 的 picker / explorer / diagnostics / symbols / recent / git 能力
 - 集成 `trouble.nvim` 用于诊断与问题列表
@@ -63,6 +63,12 @@ nix develop
 - `<leader>cf`：格式化
 - `[d` / `]d`：前后跳转诊断
 - `<leader>xx`：Trouble 诊断列表
+
+### Completion
+- `<C-j>` / `<C-k>`：向下 / 向上选择补全候选
+- `<CR>`：接受当前补全候选
+- `<Tab>` / `<S-Tab>`：在 snippet 占位符间前进 / 后退
+- `<M-l>`：接受 Copilot 幽灵文本补全
 
 ### Tests / Tasks
 - `<leader>tn`：运行最近测试
