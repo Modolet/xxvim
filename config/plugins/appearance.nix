@@ -32,12 +32,18 @@ in
           mode = "buffers";
           diagnostics = "nvim_lsp";
           always_show_bufferline = true;
-          separator_style = "slant";
+          separator_style = "thin";
+          show_buffer_close_icons = false;
+          show_close_icon = false;
+          enforce_regular_tabs = true;
+          tab_size = 20;
+          indicator.style = "none";
           offsets = [
             {
               filetype = "snacks_layout_box";
               text = "Explorer";
-              separator = true;
+              separator = false;
+              text_align = "left";
             }
           ];
         };

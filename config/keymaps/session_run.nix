@@ -70,38 +70,56 @@
       {
         mode = "n";
         key = "<leader>rc";
-        action = "<cmd>OverseerRun cargo check<cr>";
-        options.desc = "Cargo Check";
+        action = "<cmd>lua require('xxvim.tasks').check()<cr>";
+        options.desc = "Project Check/Configure";
       }
       {
         mode = "n";
         key = "<leader>rC";
-        action = "<cmd>OverseerRun cargo clippy<cr>";
-        options.desc = "Cargo Clippy";
+        action = "<cmd>lua require('xxvim.tasks').secondary()<cr>";
+        options.desc = "Project Secondary Action";
+      }
+      {
+        mode = "n";
+        key = "<leader>rb";
+        action = "<cmd>lua require('xxvim.tasks').build()<cr>";
+        options.desc = "Project Build";
       }
       {
         mode = "n";
         key = "<leader>rr";
-        action = "<cmd>OverseerRun cargo run<cr>";
-        options.desc = "Cargo Run";
+        action = "<cmd>lua require('xxvim.tasks').primary()<cr>";
+        options.desc = "Project Run";
+      }
+      {
+        mode = "n";
+        key = "<leader>rt";
+        action = "<cmd>lua require('xxvim.tasks').test()<cr>";
+        options.desc = "Project Test";
       }
       {
         mode = "n";
         key = "<leader>rT";
-        action = "<cmd>OverseerRun cargo nextest<cr>";
-        options.desc = "Cargo Nextest";
+        action = "<cmd>lua require('xxvim.tasks').extra_test()<cr>";
+        options.desc = "Project Extra Test";
       }
       {
         mode = "n";
-        key = "<leader>rp";
-        action = "<cmd>OverseerRun python current file<cr>";
-        options.desc = "Python Run File";
+        key = "<leader>rd";
+        action = "<cmd>lua require('xxvim.tasks').debug()<cr>";
+        options.desc = "Project Debug";
       }
       {
         mode = "n";
-        key = "<leader>rm";
-        action = "<cmd>OverseerRun cmake build<cr>";
-        options.desc = "CMake Build";
+        key = "<leader>rs";
+        action = "<cmd>lua require('xxvim.tasks').select()<cr>";
+        options.desc = "Project Select/Sync";
+      }
+      {
+        mode = "n";
+        key = "<leader>rR";
+        action = "<cmd>lua require('xxvim.tasks').picker()<cr>";
+        options.desc = "Project Task Picker";
       }
     ];
 }

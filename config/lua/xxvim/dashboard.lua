@@ -1,6 +1,10 @@
 local has_alpha, alpha = pcall(require, "alpha")
 local has_dashboard, dashboard = pcall(require, "alpha.themes.dashboard")
 if has_alpha and has_dashboard then
+  dashboard.opts = vim.tbl_extend("force", dashboard.opts or {}, {
+    noautocmd = true,
+  })
+
   dashboard.section.header.val = {
     "          ██╗  ██╗██╗  ██╗██╗   ██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗          Z",
     "          ╚██╗██╔╝╚██╗██╔╝╚██╗ ██╔╝╚██╗██╔╝██║   ██║██║████╗ ████║      Z    ",
@@ -58,6 +62,20 @@ if has_alpha and has_dashboard then
   vim.api.nvim_create_autocmd("VimResized", {
     callback = function()
       pcall(vim.cmd.AlphaRedraw)
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "alpha",
+    callback = function(event)
+      vim.bo[event.buf].buflisted = false
+      vim.bo[event.buf].modifiable = false
+      vim.opt_local.fillchars:append({ eob = " " })
+      vim.opt_local.number = false
+      vim.opt_local.relativenumber = false
+      vim.opt_local.signcolumn = "no"
+      vim.opt_local.foldcolumn = "0"
+      vim.opt_local.statuscolumn = ""
     end,
   })
 

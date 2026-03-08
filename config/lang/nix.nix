@@ -2,10 +2,10 @@
 {
   config = {
     extraPackages = with pkgs; [
-      nil
+      deadnix
+      nixd
       nixfmt
       statix
-      deadnix
     ];
 
     plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
@@ -13,6 +13,11 @@
       query
     ];
 
-    plugins.lsp.servers.nil_ls.enable = true;
+    plugins.lsp.servers.nixd = {
+      enable = true;
+      settings = {
+        formatting.command = [ "nixfmt" ];
+      };
+    };
   };
 }

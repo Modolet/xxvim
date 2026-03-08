@@ -6,6 +6,7 @@
       settings = {
         highlight.enable = true;
         indent.enable = true;
+        fold.enable = true;
       };
     };
 
@@ -20,12 +21,20 @@
           c = [ "clang_format" ];
           cpp = [ "clang_format" ];
           cmake = [ "gersemi" ];
+          css = [ "prettier" ];
+          html = [ "prettier" ];
+          javascript = [ "prettier" ];
+          javascriptreact = [ "prettier" ];
           json = [ "prettier" ];
           markdown = [ "prettier" ];
           nix = [ "nixfmt" ];
           python = [ "ruff_format" ];
           rust = [ "rustfmt" ];
+          scss = [ "prettier" ];
+          typescript = [ "prettier" ];
+          typescriptreact = [ "prettier" ];
           toml = [ "taplo" ];
+          vue = [ "prettier" ];
         };
       };
     };
@@ -33,6 +42,14 @@
     plugins.lsp = {
       enable = true;
       inlayHints = true;
+      servers = {
+        cssls.filetypes = [ "css" "scss" "less" ];
+        emmet_language_server.filetypes = [ "css" "eruby" "html" "javascriptreact" "less" "sass" "scss" "svelte" "pug" "typescriptreact" "vue" ];
+        html.filetypes = [ "html" "templ" ];
+        tailwindcss.filetypes = [ "astro" "css" "html" "javascript" "javascriptreact" "markdown" "mdx" "scss" "svelte" "typescript" "typescriptreact" "vue" ];
+        ts_ls.filetypes = [ "javascript" "javascriptreact" "typescript" "typescriptreact" ];
+        vue_ls.filetypes = [ "vue" ];
+      };
       onAttach = ''
         local map = function(keys, func, desc, mode, opts)
           vim.keymap.set(
@@ -67,7 +84,7 @@
     autoCmd = [
       {
         event = [ "BufWritePre" ];
-        pattern = [ "*.nix" "*.rs" "*.py" "*.c" "*.cpp" "*.json" "*.md" "*.toml" "CMakeLists.txt" "*.cmake" ];
+        pattern = [ "*.nix" "*.rs" "*.py" "*.c" "*.cpp" "*.css" "*.html" "*.js" "*.jsx" "*.json" "*.md" "*.scss" "*.toml" "*.ts" "*.tsx" "*.vue" "CMakeLists.txt" "*.cmake" ];
         callback = {
           __raw = ''
             function()
@@ -85,6 +102,12 @@
     ];
 
     extraConfigLua = ''
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
+
       vim.diagnostic.config({
         underline = true,
         update_in_insert = false,
@@ -106,6 +129,10 @@
             [vim.diagnostic.severity.HINT] = " ",
           },
         },
+      })
+
+      vim.lsp.config("*", {
+        capabilities = capabilities,
       })
     '';
   };

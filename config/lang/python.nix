@@ -4,6 +4,7 @@
     extraPackages = with pkgs; [
       basedpyright
       python3
+      uv
       python3Packages.debugpy
       python3Packages.pytest
       ruff
