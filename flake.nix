@@ -20,8 +20,8 @@
     {
       homeModules.default = {
         imports = [
-          nixvim.homeManagerModules.nixvim
-          ./config
+          nixvim.homeModules.nixvim
+          ./hm-module.nix
         ];
       };
       homeManagerModules.default = self.homeModules.default;
