@@ -62,6 +62,7 @@ ${whichKeyGroupsLua}
     plugins.noice = {
       enable = true;
       settings = {
+        presets.inc_rename = true;
         cmdline = {
           enabled = true;
           view = "cmdline_popup";
@@ -164,7 +165,6 @@ ${whichKeyGroupsLua}
           enabled = true;
           timeout = 3000;
         };
-        input.enabled = true;
         quickfile.enabled = true;
         indent.enabled = true;
         statuscolumn.enabled = true;
