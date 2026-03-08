@@ -5,7 +5,6 @@
     lintersByFt = {
       python = [ "ruff" ];
       markdown = [ "markdownlint" ];
-      json = [ "jsonlint" ];
       nix = [ "statix" ];
     };
     autoCmd = {
