@@ -3,6 +3,41 @@
   config.keymaps = [
       {
         mode = "n";
+        key = "s";
+        action = "<cmd>lua require('flash').jump()<cr>";
+        options.desc = "Flash Jump";
+      }
+      {
+        mode = [
+          "n"
+          "x"
+          "o"
+        ];
+        key = "S";
+        action = "<cmd>lua require('flash').treesitter()<cr>";
+        options.desc = "Flash Treesitter";
+      }
+      {
+        mode = [
+          "n"
+          "o"
+        ];
+        key = "sr";
+        action = "<cmd>lua require('flash').remote()<cr>";
+        options.desc = "Flash Remote";
+      }
+      {
+        mode = [
+          "n"
+          "x"
+          "o"
+        ];
+        key = "sR";
+        action = "<cmd>lua require('flash').treesitter_search()<cr>";
+        options.desc = "Flash Treesitter Search";
+      }
+      {
+        mode = "n";
         key = "<leader>uf";
         action = "<cmd>lua require('xxvim.toggle').toggle_autoformat_global()<cr>";
         options.desc = "Toggle Auto Format (Global)";

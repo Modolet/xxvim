@@ -105,6 +105,12 @@ ${whichKeyGroupsLua}
 
     plugins.flash = {
       enable = true;
+      settings = {
+        modes = {
+          char.enabled = false;
+          search.enabled = false;
+        };
+      };
     };
 
     plugins.gitsigns = {
@@ -114,6 +120,36 @@ ${whichKeyGroupsLua}
         signs_staged_enable = true;
       };
     };
+
+    extraConfigLua = ''
+      local function apply_auxiliary_comment_highlights()
+        local comment = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
+        if not comment or vim.tbl_isempty(comment) then
+          return
+        end
+
+        local style = vim.tbl_extend("force", comment, {
+          italic = true,
+          bold = false,
+        })
+
+        vim.api.nvim_set_hl(0, "LspInlayHint", style)
+        vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", style)
+      end
+
+      local augroup = vim.api.nvim_create_augroup("xxvim_auxiliary_comment_highlights", { clear = true })
+
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        group = augroup,
+        callback = apply_auxiliary_comment_highlights,
+      })
+
+      vim.api.nvim_create_autocmd("VimEnter", {
+        group = augroup,
+        once = true,
+        callback = apply_auxiliary_comment_highlights,
+      })
+    '';
 
     plugins.indent-blankline = {
       enable = true;
