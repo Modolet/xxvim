@@ -2,9 +2,7 @@ local M = {}
 
 local root = require("xxvim.root")
 
-local augroup = vim.api.nvim_create_augroup("xxvim_tasks", { clear = true })
 local overseer_ready = false
-local dynamic_keymaps_ready = false
 
 local function current_root(bufnr)
   bufnr = bufnr or 0
@@ -96,15 +94,6 @@ function M.get_profile(kind)
           vim.cmd("OverseerRun")
         end,
       },
-      mappings = {
-        ["<leader>rc"] = { action = "check", desc = "Cargo Check" },
-        ["<leader>rC"] = { action = "secondary", desc = "Cargo Clippy" },
-        ["<leader>rb"] = { action = "build", desc = "Cargo Build" },
-        ["<leader>rr"] = { action = "primary", desc = "Cargo Run" },
-        ["<leader>rt"] = { action = "test", desc = "Cargo Test" },
-        ["<leader>rT"] = { action = "extra_test", desc = "Cargo Nextest" },
-        ["<leader>rR"] = { action = "picker", desc = "Cargo Tasks" },
-      },
     },
     python = {
       label = "uv",
@@ -128,14 +117,6 @@ function M.get_profile(kind)
         picker = function()
           vim.cmd("OverseerRun")
         end,
-      },
-      mappings = {
-        ["<leader>rc"] = { action = "check", desc = "UV Sync" },
-        ["<leader>rb"] = { action = "build", desc = "UV Run File" },
-        ["<leader>rr"] = { action = "primary", desc = "UV Run File" },
-        ["<leader>rt"] = { action = "test", desc = "UV Pytest File" },
-        ["<leader>rT"] = { action = "extra_test", desc = "UV Pytest Project" },
-        ["<leader>rR"] = { action = "picker", desc = "UV Tasks" },
       },
     },
     cmake = {
@@ -167,16 +148,6 @@ function M.get_profile(kind)
           run_command("CMakeSelectBuildTarget")
         end,
       },
-      mappings = {
-        ["<leader>rc"] = { action = "check", desc = "CMake Configure" },
-        ["<leader>rC"] = { action = "secondary", desc = "CMake Build Preset" },
-        ["<leader>rb"] = { action = "build", desc = "CMake Build" },
-        ["<leader>rr"] = { action = "primary", desc = "CMake Run" },
-        ["<leader>rt"] = { action = "test", desc = "CMake Test" },
-        ["<leader>rd"] = { action = "debug", desc = "CMake Debug" },
-        ["<leader>rs"] = { action = "select", desc = "CMake Launch Target" },
-        ["<leader>rR"] = { action = "picker", desc = "CMake Build Target" },
-      },
     },
     doxygen = {
       label = "doxygen",
@@ -195,12 +166,6 @@ function M.get_profile(kind)
           vim.cmd("OverseerRun")
         end,
       },
-      mappings = {
-        ["<leader>rc"] = { action = "check", desc = "Doxygen Generate" },
-        ["<leader>rb"] = { action = "build", desc = "Doxygen Generate" },
-        ["<leader>rr"] = { action = "primary", desc = "Doxygen Generate" },
-        ["<leader>rR"] = { action = "picker", desc = "Doxygen Tasks" },
-      },
     },
     generic = {
       label = "tasks",
@@ -213,65 +178,10 @@ function M.get_profile(kind)
           vim.cmd("OverseerRun")
         end,
       },
-      mappings = {
-        ["<leader>rr"] = { action = "primary", desc = "Tasks Picker" },
-        ["<leader>rR"] = { action = "picker", desc = "Tasks Picker" },
-      },
     },
   }
 
   return profiles[kind] or profiles.generic
-end
-
-local function register_which_key(bufnr, profile)
-  local ok, which_key = pcall(require, "which-key")
-  if not ok then
-    return
-  end
-
-  local entries = {
-    { "<leader>r", group = profile.group, buffer = bufnr },
-  }
-
-  for lhs, spec in pairs(profile.mappings) do
-    table.insert(entries, { lhs, desc = spec.desc, buffer = bufnr })
-  end
-
-  which_key.add(entries)
-end
-
-function M.refresh_buffer_keymaps(bufnr)
-  bufnr = bufnr or vim.api.nvim_get_current_buf()
-  if not vim.api.nvim_buf_is_valid(bufnr) then
-    return
-  end
-
-  local kind = project_kind(bufnr)
-  local profile = M.get_profile(kind)
-  local managed_keys = {
-    "<leader>rc",
-    "<leader>rC",
-    "<leader>rb",
-    "<leader>rr",
-    "<leader>rt",
-    "<leader>rT",
-    "<leader>rd",
-    "<leader>rs",
-    "<leader>rR",
-  }
-
-  for _, lhs in ipairs(managed_keys) do
-    pcall(vim.keymap.del, "n", lhs, { buffer = bufnr })
-  end
-
-  for lhs, spec in pairs(profile.mappings) do
-    vim.keymap.set("n", lhs, function()
-      call_profile_action(spec.action)
-    end, { buffer = bufnr, silent = true, desc = spec.desc })
-  end
-
-  vim.b[bufnr].xxvim_run_profile = kind
-  register_which_key(bufnr, profile)
 end
 
 function M.primary()
@@ -449,23 +359,7 @@ function M.setup_overseer_templates()
   end
 end
 
-function M.setup_dynamic_keymaps()
-  if dynamic_keymaps_ready then
-    return
-  end
-
-  vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "DirChanged" }, {
-    group = augroup,
-    callback = function(event)
-      M.refresh_buffer_keymaps(event.buf)
-    end,
-  })
-
-  dynamic_keymaps_ready = true
-end
-
 function M.setup()
-  M.setup_dynamic_keymaps()
 end
 
 return M

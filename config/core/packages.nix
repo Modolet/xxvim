@@ -10,7 +10,11 @@
     nodePackages.vscode-langservers-extracted
     nodePackages.prettier
     nodePackages.markdownlint-cli
+    ghostscript
+    mermaid-cli
     shfmt
+    sqlite
     stylua
+    texliveSmall
   ];
 }

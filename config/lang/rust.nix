@@ -9,6 +9,7 @@
       clippy
       rust-analyzer
       rustc
+      rustfmt
     ];
 
     plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [

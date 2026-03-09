@@ -1,8 +1,12 @@
-{ ... }:
+{ pkgs, ... }:
 {
   config = {
     plugins.treesitter = {
       enable = true;
+      grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+        bash
+        regex
+      ];
       settings = {
         highlight.enable = true;
         indent.enable = true;

@@ -4,7 +4,7 @@ let
     map (item: ''          { "${item.prefix}", group = "${item.group}" },'') keymapGroups
   );
 in
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 let
   useStylix = config.xxvim.theme.stylix.enable;
 in
@@ -195,6 +195,7 @@ ${whichKeyGroupsLua}
             smartcase = true;
             frecency = true;
           };
+          db.sqlite3_path = "${pkgs.sqlite.out}/lib/libsqlite3.so";
           formatters.file.filename_first = true;
           win = {
             input.keys."<Esc>" = {
