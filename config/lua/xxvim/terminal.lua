@@ -141,7 +141,7 @@ local function spawn_terminal(name, command)
       on_exit = function()
         vim.schedule(function()
           if terminal.auto_close_on_exit then
-            close_terminal_window(name)
+            close_terminal(name)
           elseif is_valid_buf(terminal.buf) then
             terminal.job = nil
           else
