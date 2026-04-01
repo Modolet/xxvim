@@ -1,4 +1,5 @@
 local M = {}
+local navigator = require("xxvim.navigator")
 
 local terminals = {
   float = {
@@ -47,10 +48,18 @@ local function setup_terminal_buffer_keymaps(buffer)
   end
 
   map("<Esc><Esc>", [[<C-\><C-n>]], "Terminal Normal Mode")
-  map("<C-h>", [[<C-\><C-n><C-w>h]], "Go to Left Window")
-  map("<C-j>", [[<C-\><C-n><C-w>j]], "Go to Lower Window")
-  map("<C-k>", [[<C-\><C-n><C-w>k]], "Go to Upper Window")
-  map("<C-l>", [[<C-\><C-n><C-w>l]], "Go to Right Window")
+  map("<C-h>", function()
+    navigator.navigate_from_terminal("h")
+  end, "Go to Left Window")
+  map("<C-j>", function()
+    navigator.navigate_from_terminal("j")
+  end, "Go to Lower Window")
+  map("<C-k>", function()
+    navigator.navigate_from_terminal("k")
+  end, "Go to Upper Window")
+  map("<C-l>", function()
+    navigator.navigate_from_terminal("l")
+  end, "Go to Right Window")
 end
 
 local function reset_terminal(name)

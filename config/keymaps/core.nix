@@ -55,25 +55,25 @@
     {
       mode = "n";
       key = "<C-h>";
-      action = "<C-w>h";
+      action.__raw = "function() require('xxvim.navigator').navigate('h') end";
       options.desc = "Go to Left Window";
     }
     {
       mode = "n";
       key = "<C-j>";
-      action = "<C-w>j";
+      action.__raw = "function() require('xxvim.navigator').navigate('j') end";
       options.desc = "Go to Lower Window";
     }
     {
       mode = "n";
       key = "<C-k>";
-      action = "<C-w>k";
+      action.__raw = "function() require('xxvim.navigator').navigate('k') end";
       options.desc = "Go to Upper Window";
     }
     {
       mode = "n";
       key = "<C-l>";
-      action = "<C-w>l";
+      action.__raw = "function() require('xxvim.navigator').navigate('l') end";
       options.desc = "Go to Right Window";
     }
     {

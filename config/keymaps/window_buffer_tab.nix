@@ -27,6 +27,18 @@
     }
     {
       mode = "n";
+      key = "<C-\\>";
+      action = "<cmd>vsplit<cr>";
+      options.desc = "Split Right";
+    }
+    {
+      mode = "n";
+      key = "<C-S-\\>";
+      action = "<cmd>split<cr>";
+      options.desc = "Split Below";
+    }
+    {
+      mode = "n";
       key = "<leader>wd";
       action = "<cmd>close<cr>";
       options.desc = "Delete Window";
