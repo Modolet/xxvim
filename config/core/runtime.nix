@@ -1,6 +1,7 @@
 { ... }:
 {
   config.extraFiles = {
+    "lua/xxvim/env.lua".source = ../lua/xxvim/env.lua;
     "lua/xxvim/dap.lua".source = ../lua/xxvim/dap.lua;
     "lua/xxvim/root.lua".source = ../lua/xxvim/root.lua;
     "lua/xxvim/toggle.lua".source = ../lua/xxvim/toggle.lua;

@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, ... }:
 {
   config = {
     viAlias = true;
@@ -6,6 +6,10 @@
     withNodeJs = true;
     withPython3 = true;
     withRuby = false;
+
+    env = {
+      XXVIM_TOOL_FALLBACK_PATH = lib.makeBinPath config.extraPackages;
+    };
 
     opts = {
       number = true;
@@ -46,6 +50,10 @@
       vim.g.mapleader = " "
       vim.g.maplocalleader = ","
       vim.g.xxvim_start_time = vim.uv.hrtime()
+
+      pcall(function()
+        require("xxvim.env").setup_path_precedence()
+      end)
 
       pcall(function()
         require("xxvim.root").sync_startup_cwd()
