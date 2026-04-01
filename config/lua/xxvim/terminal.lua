@@ -34,7 +34,24 @@ local function is_valid_win(window)
 end
 
 local open_window
-local setup_terminal_keymaps
+local setup_managed_terminal_keymaps
+
+local function setup_terminal_buffer_keymaps(buffer)
+  local function map(lhs, rhs, desc)
+    vim.keymap.set("t", lhs, rhs, {
+      buffer = buffer,
+      silent = true,
+      nowait = true,
+      desc = desc,
+    })
+  end
+
+  map("<Esc><Esc>", [[<C-\><C-n>]], "Terminal Normal Mode")
+  map("<C-h>", [[<C-\><C-n><C-w>h]], "Go to Left Window")
+  map("<C-j>", [[<C-\><C-n><C-w>j]], "Go to Lower Window")
+  map("<C-k>", [[<C-\><C-n><C-w>k]], "Go to Upper Window")
+  map("<C-l>", [[<C-\><C-n><C-w>l]], "Go to Right Window")
+end
 
 local function reset_terminal(name)
   local terminal = terminals[name]
@@ -73,13 +90,13 @@ local function reopen_terminal(name)
   end
 
   terminal.win = open_window(terminal.buf, terminal.layout)
-  setup_terminal_keymaps(terminal.buf, name)
+  setup_managed_terminal_keymaps(terminal.buf, name)
   vim.api.nvim_set_current_win(terminal.win)
   vim.cmd("startinsert")
   return true
 end
 
-setup_terminal_keymaps = function(buffer, name)
+setup_managed_terminal_keymaps = function(buffer, name)
   local function map(mode, lhs, rhs, desc)
     vim.keymap.set(mode, lhs, rhs, {
       buffer = buffer,
@@ -89,7 +106,7 @@ setup_terminal_keymaps = function(buffer, name)
     })
   end
 
-  map("t", "<Esc><Esc>", [[<C-\\><C-n>]], "Terminal Normal Mode")
+  setup_terminal_buffer_keymaps(buffer)
   map("n", "q", function()
     close_terminal(name)
   end, "Close Terminal")
@@ -134,7 +151,7 @@ local function spawn_terminal(name, command)
   vim.bo[buffer].filetype = "terminal"
 
   terminal.win = open_window(buffer, terminal.layout)
-  setup_terminal_keymaps(buffer, name)
+  setup_managed_terminal_keymaps(buffer, name)
 
   vim.api.nvim_buf_call(buffer, function()
     terminal.job = vim.fn.termopen(cmd, {
@@ -181,6 +198,16 @@ function M.toggle_lazygit()
 end
 
 function M.setup_commands()
+  local group = vim.api.nvim_create_augroup("xxvim_terminal_keymaps", { clear = true })
+
+  vim.api.nvim_create_autocmd("TermOpen", {
+    group = group,
+    callback = function(args)
+      setup_terminal_buffer_keymaps(args.buf)
+    end,
+    desc = "Apply xxvim terminal keymaps",
+  })
+
   vim.api.nvim_create_user_command("XxvimFloatTerm", function(opts)
     M.toggle_float_terminal(opts.args ~= "" and opts.args or nil)
   end, { nargs = "*" })
