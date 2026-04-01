@@ -17,6 +17,28 @@ local function join_path(entries)
   return table.concat(entries, ":")
 end
 
+local function shell_name(path)
+  return vim.fs.basename(path or "")
+end
+
+local function current_shell_is_nix_bash()
+  local current_shell = vim.o.shell or vim.env.SHELL or ""
+  return current_shell:match("^/nix/store/.*/bin/bash$") ~= nil
+end
+
+local function apply_shell_defaults(shell)
+  if shell_name(shell) ~= "nu" then
+    return
+  end
+
+  vim.o.shell = shell
+  vim.o.shellcmdflag = "-c"
+  vim.o.shellquote = ""
+  vim.o.shellxquote = ""
+  vim.o.shellredir = ">"
+  vim.o.shellpipe = "| tee"
+end
+
 function M.setup_path_precedence()
   local current_path = vim.env.PATH or ""
   local fallback_path = vim.env.XXVIM_TOOL_FALLBACK_PATH or ""
@@ -47,6 +69,18 @@ function M.setup_path_precedence()
   end
 
   vim.env.PATH = join_path(reordered)
+end
+
+function M.setup_shell_precedence()
+  local passwd = vim.uv.os_get_passwd()
+  if not passwd or not passwd.shell or passwd.shell == "" then
+    return
+  end
+
+  if vim.env.IN_NIX_SHELL ~= nil and current_shell_is_nix_bash() then
+    vim.env.SHELL = passwd.shell
+    apply_shell_defaults(passwd.shell)
+  end
 end
 
 return M

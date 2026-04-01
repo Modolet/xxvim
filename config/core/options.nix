@@ -56,6 +56,10 @@
       end)
 
       pcall(function()
+        require("xxvim.env").setup_shell_precedence()
+      end)
+
+      pcall(function()
         require("xxvim.root").sync_startup_cwd()
       end)
     '';
