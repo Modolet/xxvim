@@ -7,8 +7,19 @@ local tmux_directions = {
   l = "-R",
 }
 
+local kitty_directions = {
+  h = "left",
+  j = "bottom",
+  k = "top",
+  l = "right",
+}
+
 local function can_use_tmux()
   return vim.env.TMUX ~= nil and vim.env.TMUX ~= "" and vim.fn.executable("tmux") == 1
+end
+
+local function can_use_kitty()
+  return vim.env.KITTY_WINDOW_ID ~= nil and vim.env.KITTY_WINDOW_ID ~= "" and vim.fn.executable("kitty") == 1
 end
 
 local function navigate_tmux(direction)
@@ -21,6 +32,16 @@ local function navigate_tmux(direction)
   return vim.v.shell_error == 0
 end
 
+local function navigate_kitty(direction)
+  local kitty_direction = kitty_directions[direction]
+  if kitty_direction == nil or not can_use_kitty() then
+    return false
+  end
+
+  vim.fn.system({ "kitty", "@", "action", "neighboring_window", kitty_direction })
+  return vim.v.shell_error == 0
+end
+
 function M.navigate(direction)
   local current_window = vim.api.nvim_get_current_win()
   vim.cmd("silent! wincmd " .. direction)
@@ -29,7 +50,11 @@ function M.navigate(direction)
     return true
   end
 
-  return navigate_tmux(direction)
+  if navigate_tmux(direction) then
+    return true
+  end
+
+  return navigate_kitty(direction)
 end
 
 function M.navigate_from_terminal(direction)
