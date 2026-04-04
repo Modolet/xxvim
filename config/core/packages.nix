@@ -7,9 +7,9 @@
     git
     lazygit
     just
-    nodePackages.vscode-langservers-extracted
-    nodePackages.prettier
-    nodePackages.markdownlint-cli
+    vscode-langservers-extracted
+    prettier
+    markdownlint-cli
     ghostscript
     mermaid-cli
     shfmt

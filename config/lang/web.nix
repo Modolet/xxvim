@@ -3,7 +3,7 @@
   config = {
     extraPackages = with pkgs; [
       emmet-language-server
-      nodePackages.prettier
+      prettier
       tailwindcss-language-server
       typescript
       typescript-language-server
