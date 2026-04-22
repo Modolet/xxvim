@@ -8,7 +8,7 @@
       taplo
     ];
 
-    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
       markdown
       markdown_inline
       toml

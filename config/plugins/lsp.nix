@@ -3,7 +3,7 @@
   config = {
     plugins.treesitter = {
       enable = true;
-      grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+      grammarPackages = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
         bash
         regex
       ];

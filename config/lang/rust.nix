@@ -12,7 +12,7 @@
       rustfmt
     ];
 
-    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
       rust
     ];
 

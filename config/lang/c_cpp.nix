@@ -10,7 +10,7 @@
       cmake-language-server
     ];
 
-    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
       c
       cmake
       cpp
