@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   config = {
-    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
+    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
       json
     ];
 
