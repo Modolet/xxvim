@@ -43,7 +43,7 @@ local function ensure_dap()
       name = "Launch file",
       program = "${file}",
       pythonPath = function()
-        return "python"
+        return require("xxvim.python").current_interpreter()
       end,
       console = "integratedTerminal",
     },

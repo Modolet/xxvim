@@ -4,6 +4,7 @@
     "lua/xxvim/env.lua".source = ../lua/xxvim/env.lua;
     "lua/xxvim/dap.lua".source = ../lua/xxvim/dap.lua;
     "lua/xxvim/root.lua".source = ../lua/xxvim/root.lua;
+    "lua/xxvim/python.lua".source = ../lua/xxvim/python.lua;
     "lua/xxvim/toggle.lua".source = ../lua/xxvim/toggle.lua;
     "lua/xxvim/testing.lua".source = ../lua/xxvim/testing.lua;
     "lua/xxvim/tools.lua".source = ../lua/xxvim/tools.lua;

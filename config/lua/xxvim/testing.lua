@@ -16,6 +16,9 @@ function M.ensure_neotest()
     adapters = {
       require("neotest-python")({
         dap = { justMyCode = false },
+        python = function()
+          return require("xxvim.python").current_interpreter()
+        end,
         runner = "pytest",
       }),
       require("neotest-rust")({}),

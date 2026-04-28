@@ -15,5 +15,9 @@
     ];
 
     plugins.lsp.servers.basedpyright.enable = true;
+
+    extraConfigLua = ''
+      require("xxvim.python").setup_lsp()
+    '';
   };
 }
