@@ -62,6 +62,10 @@
       pcall(function()
         require("xxvim.root").sync_startup_cwd()
       end)
+
+      pcall(function()
+        require("xxvim.file_header").setup()
+      end)
     '';
   };
 }

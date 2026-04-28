@@ -16,5 +16,6 @@
     "lua/xxvim/git.lua".source = ../lua/xxvim/git.lua;
     "lua/xxvim/dashboard.lua".source = ../lua/xxvim/dashboard.lua;
     "lua/xxvim/workflow.lua".source = ../lua/xxvim/workflow.lua;
+    "lua/xxvim/file_header.lua".source = ../lua/xxvim/file_header.lua;
   };
 }
