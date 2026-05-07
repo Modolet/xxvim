@@ -16,6 +16,14 @@
       vimdoc
     ];
 
+    plugins.render-markdown = {
+      enable = true;
+      settings = {
+        preset = "lazy";
+        enabled = true;
+      };
+    };
+
     plugins.lsp.servers = {
       marksman.enable = true;
       taplo.enable = true;
