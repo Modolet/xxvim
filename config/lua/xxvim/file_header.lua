@@ -116,7 +116,7 @@ end
 function M.setup()
   local group = vim.api.nvim_create_augroup("xxvim_file_header", { clear = true })
 
-  vim.api.nvim_create_autocmd("BufNewFile", {
+  vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
     group = group,
     pattern = { "*.c", "*.h", "*.cc", "*.cpp", "*.cxx", "*.hpp", "*.hh", "*.hxx", "*.rs" },
     callback = function(args)

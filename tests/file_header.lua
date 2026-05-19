@@ -49,4 +49,14 @@ header.insert_if_needed(0, {
 
 assert_equal(vim.api.nvim_buf_get_lines(0, 0, 1, false)[1], "fn main() {}", "非空 buffer 不应插入文件头")
 
+local explorer_created = temp_root .. "/src/explorer_created.c"
+vim.fn.mkdir(vim.fn.fnamemodify(explorer_created, ":h"), "p")
+vim.fn.writefile({}, explorer_created)
+
+header.setup()
+vim.cmd("edit! " .. vim.fn.fnameescape(explorer_created))
+
+assert_equal(vim.api.nvim_buf_get_lines(0, 0, 1, false)[1], "/**", "打开由文件树预先创建的空文件时应插入文件头")
+assert_equal(vim.api.nvim_buf_get_lines(0, 1, 2, false)[1], "@file explorer_created.c", "文件树新建文件应使用当前文件名")
+
 vim.cmd("qa!")
