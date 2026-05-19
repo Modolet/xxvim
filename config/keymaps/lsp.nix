@@ -153,6 +153,12 @@
     }
     {
       mode = "n";
+      key = "<leader>ch";
+      action = "<cmd>lua require('xxvim.c_cpp').switch_source_header()<cr>";
+      options.desc = "Switch Source/Header";
+    }
+    {
+      mode = "n";
       key = "<leader>cA";
       action = "<cmd>lua vim.lsp.buf.code_action({ context = { only = { 'source' }, diagnostics = {} } })<cr>";
       options.desc = "Source Action";
