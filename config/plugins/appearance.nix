@@ -22,6 +22,41 @@ in
         } // lib.optionalAttrs (!useStylix) {
           theme = "catppuccin";
         };
+        sections.lualine_x = [
+          {
+            __raw = ''
+              {
+                function()
+                  return require("noice").api.status.command.get()
+                end,
+                cond = function()
+                  return package.loaded["noice"] and require("noice").api.status.command.has()
+                end,
+                color = function()
+                  return { fg = Snacks.util.color("Statement") }
+                end,
+              }
+            '';
+          }
+          {
+            __raw = ''
+              {
+                function()
+                  return require("noice").api.status.mode.get()
+                end,
+                cond = function()
+                  return package.loaded["noice"] and require("noice").api.status.mode.has()
+                end,
+                color = function()
+                  return { fg = Snacks.util.color("Constant") }
+                end,
+              }
+            '';
+          }
+          "encoding"
+          "fileformat"
+          "filetype"
+        ];
       };
     };
 
