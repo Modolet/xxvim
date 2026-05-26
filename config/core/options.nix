@@ -18,6 +18,7 @@
       clipboard = "unnamedplus";
       showmode = false;
       breakindent = true;
+      swapfile = false;
       undofile = true;
       ignorecase = true;
       smartcase = true;
