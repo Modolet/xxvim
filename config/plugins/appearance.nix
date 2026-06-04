@@ -221,6 +221,7 @@ ${whichKeyGroupsLua}
             files.hidden = true;
             grep.hidden = true;
             explorer.hidden = true;
+            explorer.watch = false;
           };
           layout = {
             preset = "default";
