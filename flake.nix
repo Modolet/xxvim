@@ -18,11 +18,13 @@
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-      homeModules.default = {
+      homeModules.default = { pkgs, ... }: {
         imports = [
           nixvim.homeModules.nixvim
           ./hm-module.nix
         ];
+
+        programs.nixvim.nixpkgs.pkgs = pkgs;
       };
       homeManagerModules.default = self.homeModules.default;
 
