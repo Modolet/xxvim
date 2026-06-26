@@ -14,6 +14,7 @@
     opts = {
       number = true;
       relativenumber = true;
+      autoread = true;
       mouse = "a";
       clipboard = "unnamedplus";
       showmode = false;
@@ -62,6 +63,10 @@
 
       pcall(function()
         require("xxvim.root").sync_startup_cwd()
+      end)
+
+      pcall(function()
+        require("xxvim.autoread").setup()
       end)
 
       pcall(function()

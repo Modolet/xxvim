@@ -18,5 +18,6 @@
     "lua/xxvim/workflow.lua".source = ../lua/xxvim/workflow.lua;
     "lua/xxvim/file_header.lua".source = ../lua/xxvim/file_header.lua;
     "lua/xxvim/c_cpp.lua".source = ../lua/xxvim/c_cpp.lua;
+    "lua/xxvim/autoread.lua".source = ../lua/xxvim/autoread.lua;
   };
 }
