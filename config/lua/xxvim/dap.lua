@@ -49,6 +49,35 @@ local function ensure_dap()
     },
   }
 
+  dap.adapters.dart = {
+    type = "executable",
+    command = "dart",
+    args = { "debug_adapter" },
+  }
+
+  dap.adapters.flutter = {
+    type = "executable",
+    command = "flutter",
+    args = { "debug-adapter" },
+  }
+
+  dap.configurations.dart = {
+    {
+      type = "flutter",
+      request = "launch",
+      name = "Flutter: Launch lib/main.dart",
+      program = "${workspaceFolder}/lib/main.dart",
+      cwd = "${workspaceFolder}",
+    },
+    {
+      type = "dart",
+      request = "launch",
+      name = "Dart: Launch current file",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+    },
+  }
+
   dap.adapters.lldb = {
     type = "executable",
     command = "lldb-dap",
