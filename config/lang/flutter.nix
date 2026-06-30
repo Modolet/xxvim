@@ -2,7 +2,6 @@
 {
   config = {
     extraPackages = with pkgs; [
-      dart
       flutter
     ];
 
@@ -40,6 +39,16 @@
           enabled = true;
           virtual_text = true;
         };
+        lsp.capabilities.__raw = ''
+          (function()
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            local ok, blink = pcall(require, "blink-cmp")
+            if ok then
+              capabilities = blink.get_lsp_capabilities(capabilities)
+            end
+            return capabilities
+          end)()
+        '';
         debugger.enabled = false;
       };
     };
@@ -64,7 +73,7 @@
       }
     ];
 
-    extraConfigLua = ''
+    extraConfigLuaPre = ''
       vim.env.FLUTTER_SUPPRESS_ANALYTICS = vim.env.FLUTTER_SUPPRESS_ANALYTICS or "true"
       vim.env.DART_SUPPRESS_ANALYTICS = vim.env.DART_SUPPRESS_ANALYTICS or "true"
       vim.env.PUB_CACHE = vim.env.PUB_CACHE or (vim.fn.stdpath("data") .. "/dart/pub-cache")
