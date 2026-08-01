@@ -100,10 +100,10 @@
     {
       mode = [
         "n"
-        "v"
+        "x"
       ];
-      key = "<leader>sw";
-      action = "<cmd>lua Snacks.picker.grep_word({ cwd = require('xxvim.root').project_root() })<cr>";
+      key = "<leader>S";
+      action = "<cmd>lua Snacks.picker.grep_word({ cwd = require('xxvim.root').project_root(), layout = { preview = 'main', preset = 'ivy' } })<cr>";
       options.desc = "Visual selection or word (Root Dir)";
     }
     {
