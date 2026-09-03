@@ -220,7 +220,7 @@ ${whichKeyGroupsLua}
           sources = {
             files.hidden = true;
             grep.hidden = true;
-            explorer.hidden = true;
+            explorer.hidden = false;
             explorer.watch = true;
           };
           layout = {
