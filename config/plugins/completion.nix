@@ -3,7 +3,6 @@
   config = {
     extraPlugins = with pkgs.vimPlugins; [
       blink-compat
-      copilot-lua
       luasnip
     ];
 
@@ -50,26 +49,6 @@
         };
         snippets.preset = "luasnip";
         sources.default = [ "lsp" "path" "snippets" "buffer" ];
-      };
-    };
-
-    plugins.copilot-lua = {
-      enable = true;
-      settings = {
-        panel.enabled = false;
-        suggestion = {
-          enabled = true;
-          auto_trigger = true;
-          hide_during_completion = true;
-          keymap = {
-            accept = "<M-l>";
-            accept_word = false;
-            accept_line = false;
-            next = false;
-            prev = false;
-            dismiss = false;
-          };
-        };
       };
     };
 

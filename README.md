@@ -5,7 +5,7 @@
 ## 特性
 
 - 默认使用 `catppuccin` 主题，并兼容由 `Stylix` 接管配色的场景
-- 集成 `blink.cmp`、`friendly-snippets`、`blink.compat`、`copilot.lua`
+- 集成 `blink.cmp`、`friendly-snippets`、`blink.compat`
 - 集成 `yanky.nvim`、`dial.nvim`、`inc-rename.nvim`、`nvim-autopairs`、`mini.surround`、`mini.ai`
 - 集成 `snacks.nvim` 的 picker / explorer / diagnostics / symbols / recent / git 能力
 - 集成 `trouble.nvim` 用于诊断与问题列表
@@ -110,7 +110,6 @@ nix develop
 - `<C-j>` / `<C-k>`：向下 / 向上选择补全候选
 - `<CR>`：接受当前补全候选
 - `<Tab>` / `<S-Tab>`：在 snippet 占位符间前进 / 后退
-- `<M-l>`：接受 Copilot 幽灵文本补全
 
 ### Tests / Tasks
 - `<leader>tn`：运行最近测试
