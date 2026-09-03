@@ -1,13 +1,14 @@
 { ... }:
 {
   imports = [
+    ./assembly.nix
     ./c_cpp.nix
     ./docs.nix
-    ./flutter.nix
     ./json.nix
     ./nix.nix
     ./python.nix
     ./rust.nix
+    ./slint.nix
     ./web.nix
   ];
 }

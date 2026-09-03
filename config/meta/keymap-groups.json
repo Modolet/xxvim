@@ -3,7 +3,6 @@
   {"prefix":"<leader>c","group":"code"},
   {"prefix":"<leader>d","group":"debug"},
   {"prefix":"<leader>f","group":"file/find"},
-  {"prefix":"<leader>F","group":"flutter"},
   {"prefix":"<leader>g","group":"git"},
   {"prefix":"<leader>q","group":"quit/session"},
   {"prefix":"<leader>r","group":"run/build"},
