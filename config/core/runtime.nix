@@ -11,6 +11,7 @@
     "lua/xxvim/tasks.lua".source = ../lua/xxvim/tasks.lua;
     "lua/xxvim/terminal.lua".source = ../lua/xxvim/terminal.lua;
     "lua/xxvim/navigator.lua".source = ../lua/xxvim/navigator.lua;
+    "lua/xxvim/multicursor.lua".source = ../lua/xxvim/multicursor.lua;
     "lua/xxvim/session.lua".source = ../lua/xxvim/session.lua;
     "lua/xxvim/buffers.lua".source = ../lua/xxvim/buffers.lua;
     "lua/xxvim/git.lua".source = ../lua/xxvim/git.lua;

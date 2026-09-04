@@ -102,37 +102,37 @@
     }
     {
       mode = "n";
-      key = "<A-j>";
+      key = "<A-J>";
       action = "<cmd>m .+1<cr>==";
       options.desc = "Move Down";
     }
     {
       mode = "n";
-      key = "<A-k>";
+      key = "<A-K>";
       action = "<cmd>m .-2<cr>==";
       options.desc = "Move Up";
     }
     {
       mode = "i";
-      key = "<A-j>";
+      key = "<A-J>";
       action = "<esc><cmd>m .+1<cr>==gi";
       options.desc = "Move Down";
     }
     {
       mode = "i";
-      key = "<A-k>";
+      key = "<A-K>";
       action = "<esc><cmd>m .-2<cr>==gi";
       options.desc = "Move Up";
     }
     {
       mode = "v";
-      key = "<A-j>";
+      key = "<A-J>";
       action = ":m '>+1<cr>gv=gv";
       options.desc = "Move Down";
     }
     {
       mode = "v";
-      key = "<A-k>";
+      key = "<A-K>";
       action = ":m '<-2<cr>gv=gv";
       options.desc = "Move Up";
     }
