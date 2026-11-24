@@ -5,7 +5,7 @@
 ## 特性
 
 - 默认使用 `catppuccin` 主题，并兼容由 `Stylix` 接管配色的场景
-- 集成 `blink.cmp`、`friendly-snippets`、`blink.compat`
+- 集成 `blink.cmp` 原生补全源、`LuaSnip` 和 `friendly-snippets`
 - 集成 `yanky.nvim`、`dial.nvim`、`inc-rename.nvim`、`nvim-autopairs`、`mini.surround`、`mini.ai`
 - 集成 `snacks.nvim` 的 dashboard / notifier / indent / picker / explorer / diagnostics / symbols / recent / git 能力
 - 集成 `trouble.nvim` 用于诊断与问题列表

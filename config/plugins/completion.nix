@@ -2,7 +2,6 @@
 {
   config = {
     extraPlugins = with pkgs.vimPlugins; [
-      blink-compat
       luasnip
     ];
 
@@ -11,12 +10,31 @@
       settings = {
         keymap = {
           preset = "default";
-          "<C-space>" = [ "show" "show_documentation" "hide_documentation" ];
-          "<C-j>" = [ "select_next" "fallback" ];
-          "<C-k>" = [ "select_prev" "fallback" ];
-          "<CR>" = [ "accept" "fallback" ];
-          "<Tab>" = [ "snippet_forward" "fallback" ];
-          "<S-Tab>" = [ "snippet_backward" "fallback" ];
+          "<C-space>" = [
+            "show"
+            "show_documentation"
+            "hide_documentation"
+          ];
+          "<C-j>" = [
+            "select_next"
+            "fallback"
+          ];
+          "<C-k>" = [
+            "select_prev"
+            "fallback"
+          ];
+          "<CR>" = [
+            "accept"
+            "fallback"
+          ];
+          "<Tab>" = [
+            "snippet_forward"
+            "fallback"
+          ];
+          "<S-Tab>" = [
+            "snippet_backward"
+            "fallback"
+          ];
         };
         appearance = {
           use_nvim_cmp_as_default = true;
@@ -38,7 +56,10 @@
               gap = 1;
               columns = [
                 [ "kind_icon" ]
-                [ "label" "label_description" ]
+                [
+                  "label"
+                  "label_description"
+                ]
               ];
             };
           };
@@ -48,7 +69,12 @@
           window.border = "rounded";
         };
         snippets.preset = "luasnip";
-        sources.default = [ "lsp" "path" "snippets" "buffer" ];
+        sources.default = [
+          "lsp"
+          "path"
+          "snippets"
+          "buffer"
+        ];
       };
     };
 
