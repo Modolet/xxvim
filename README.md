@@ -106,6 +106,11 @@ nix develop
 - `[d` / `]d`：前后跳转诊断
 - `<leader>xx`：Trouble 诊断列表
 
+### 注释与界面
+
+- `gc{motion}`、`gcc` 和可视模式 `gc` 使用 Neovim 原生行注释，`gco` / `gcO` 在下方 / 上方新建注释并进入插入模式。
+- 已移除 Comment.nvim 专有的 `gb` / `gbc` 块注释键位。
+
 ### Completion
 - `<C-j>` / `<C-k>`：向下 / 向上选择补全候选
 - `<CR>`：接受当前补全候选

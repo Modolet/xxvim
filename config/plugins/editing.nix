@@ -5,7 +5,10 @@
       enable = true;
       settings = {
         close_fold_kinds_for_ft = {
-          default = [ "imports" "comment" ];
+          default = [
+            "imports"
+            "comment"
+          ];
           json = [ "array" ];
           markdown = [ ];
         };
@@ -116,7 +119,6 @@
       };
     };
 
-    plugins.comment.enable = true;
     plugins.sleuth.enable = true;
     plugins.dial.enable = true;
     plugins.inc-rename.enable = true;
@@ -125,7 +127,10 @@
       enable = true;
       settings = {
         check_ts = true;
-        disable_filetype = [ "TelescopePrompt" "snacks_picker_input" ];
+        disable_filetype = [
+          "TelescopePrompt"
+          "snacks_picker_input"
+        ];
       };
     };
 
