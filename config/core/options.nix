@@ -51,7 +51,6 @@
     extraConfigLuaPre = ''
       vim.g.mapleader = " "
       vim.g.maplocalleader = ","
-      vim.g.xxvim_start_time = vim.uv.hrtime()
 
       pcall(function()
         require("xxvim.env").setup_path_precedence()

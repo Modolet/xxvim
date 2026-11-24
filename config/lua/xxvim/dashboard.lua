@@ -1,83 +1,43 @@
-local has_alpha, alpha = pcall(require, "alpha")
-local has_dashboard, dashboard = pcall(require, "alpha.themes.dashboard")
-if has_alpha and has_dashboard then
-  dashboard.opts = vim.tbl_extend("force", dashboard.opts or {}, {
-    noautocmd = true,
-  })
-
-  dashboard.section.header.val = {
-    "          ██╗  ██╗██╗  ██╗██╗   ██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗          Z",
-    "          ╚██╗██╔╝╚██╗██╔╝╚██╗ ██╔╝╚██╗██╔╝██║   ██║██║████╗ ████║      Z    ",
-    "           ╚███╔╝  ╚███╔╝  ╚████╔╝  ╚███╔╝ ██║   ██║██║██╔████╔██║   z       ",
-    "           ██╔██╗  ██╔██╗   ╚██╔╝   ██╔██╗ ╚██╗ ██╔╝██║██║╚██╔╝██║ z         ",
-    "          ██╔╝ ██╗██╔╝ ██╗   ██║   ██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║           ",
-    "          ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝           ",
-  }
-  dashboard.section.buttons.val = {
-    dashboard.button("f", "  Find File", "<cmd>lua Snacks.picker.files({ cwd = require('xxvim.root').project_root() })<cr>"),
-    dashboard.button("n", "  New File", "<cmd>ene<cr>"),
-    dashboard.button("p", "  Projects", "<cmd>XxvimRecentProjects<cr>"),
-    dashboard.button("g", "  Find Text", "<cmd>lua Snacks.picker.grep({ cwd = require('xxvim.root').project_root() })<cr>"),
-    dashboard.button("r", "  Recent Files", "<cmd>lua Snacks.picker.recent()<cr>"),
-    dashboard.button("q", "  Quit", "<cmd>XxvimQuitAll<cr>"),
-  }
-
-  local started = vim.g.xxvim_start_time or vim.uv.hrtime()
-  local elapsed = (vim.uv.hrtime() - started) / 1000000
-  dashboard.section.footer.val = string.format("⚡ Neovim loaded in %.2f ms", elapsed)
-
-  dashboard.section.header.opts = vim.tbl_extend("force", dashboard.section.header.opts or {}, { position = "center" })
-  dashboard.section.buttons.opts = vim.tbl_extend("force", dashboard.section.buttons.opts or {}, { position = "center", spacing = 1 })
-  dashboard.section.footer.opts = vim.tbl_extend("force", dashboard.section.footer.opts or {}, { position = "center" })
-
-  for _, button in ipairs(dashboard.section.buttons.val) do
-    local shortcut = button.shortcut or (button.opts and button.opts.shortcut) or ""
-    button.opts = vim.tbl_extend("force", button.opts or {}, {
-      position = "center",
-      shortcut = shortcut ~= "" and (" " .. shortcut .. " ") or shortcut,
-      cursor = 5,
-      width = 42,
-      align_shortcut = "right",
-      hl_shortcut = "Keyword",
-    })
-  end
-
-  local function pad()
-    local header_h = #dashboard.section.header.val
-    local buttons_h = #dashboard.section.buttons.val
-    local footer_h = type(dashboard.section.footer.val) == "table" and #dashboard.section.footer.val or 1
-    local content_h = header_h + buttons_h + footer_h + 4
-    return math.max(2, math.floor((vim.o.lines - content_h) * 0.35))
-  end
-
-  dashboard.config.layout = {
-    { type = "padding", val = pad() },
-    dashboard.section.header,
-    { type = "padding", val = 2 },
-    dashboard.section.buttons,
-    { type = "padding", val = 1 },
-    dashboard.section.footer,
-  }
-
-  vim.api.nvim_create_autocmd("VimResized", {
-    callback = function()
-      pcall(vim.cmd.AlphaRedraw)
-    end,
-  })
-
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = "alpha",
-    callback = function(event)
-      vim.bo[event.buf].buflisted = false
-      vim.bo[event.buf].modifiable = false
-      vim.opt_local.fillchars:append({ eob = " " })
-      vim.opt_local.number = false
-      vim.opt_local.relativenumber = false
-      vim.opt_local.signcolumn = "no"
-      vim.opt_local.foldcolumn = "0"
-      vim.opt_local.statuscolumn = ""
-    end,
-  })
-
-  alpha.setup(dashboard.config)
-end
+return {
+  enabled = true,
+  sections = { { section = "header" }, { section = "keys", gap = 1 } },
+  preset = {
+    header = table.concat({
+      "          ██╗  ██╗██╗  ██╗██╗   ██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗          Z",
+      "          ╚██╗██╔╝╚██╗██╔╝╚██╗ ██╔╝╚██╗██╔╝██║   ██║██║████╗ ████║      Z    ",
+      "           ╚███╔╝  ╚███╔╝  ╚████╔╝  ╚███╔╝ ██║   ██║██║██╔████╔██║   z       ",
+      "           ██╔██╗  ██╔██╗   ╚██╔╝   ██╔██╗ ╚██╗ ██╔╝██║██║╚██╔╝██║ z         ",
+      "          ██╔╝ ██╗██╔╝ ██╗   ██║   ██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║           ",
+      "          ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝           ",
+    }, "\n"),
+    keys = {
+      {
+        key = "f",
+        icon = " ",
+        desc = "Find File",
+        action = function()
+          Snacks.picker.files({ cwd = require("xxvim.root").project_root() })
+        end,
+      },
+      { key = "n", icon = " ", desc = "New File", action = ":ene" },
+      { key = "p", icon = " ", desc = "Projects", action = ":XxvimRecentProjects" },
+      {
+        key = "g",
+        icon = " ",
+        desc = "Find Text",
+        action = function()
+          Snacks.picker.grep({ cwd = require("xxvim.root").project_root() })
+        end,
+      },
+      {
+        key = "r",
+        icon = " ",
+        desc = "Recent Files",
+        action = function()
+          Snacks.picker.recent()
+        end,
+      },
+      { key = "q", icon = " ", desc = "Quit", action = ":XxvimQuitAll" },
+    },
+  },
+}

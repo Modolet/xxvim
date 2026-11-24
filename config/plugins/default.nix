@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./alpha.nix
     ./appearance.nix
     ./completion.nix
     ./editing.nix

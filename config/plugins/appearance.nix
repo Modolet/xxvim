@@ -197,6 +197,7 @@ ${whichKeyGroupsLua}
     plugins.snacks = {
       enable = true;
       settings = {
+        dashboard.__raw = ''require("xxvim.dashboard")'';
         scroll = {
           enabled = true;
           animate = {

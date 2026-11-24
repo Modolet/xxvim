@@ -7,7 +7,7 @@
 - 默认使用 `catppuccin` 主题，并兼容由 `Stylix` 接管配色的场景
 - 集成 `blink.cmp`、`friendly-snippets`、`blink.compat`
 - 集成 `yanky.nvim`、`dial.nvim`、`inc-rename.nvim`、`nvim-autopairs`、`mini.surround`、`mini.ai`
-- 集成 `snacks.nvim` 的 picker / explorer / diagnostics / symbols / recent / git 能力
+- 集成 `snacks.nvim` 的 dashboard / picker / explorer / diagnostics / symbols / recent / git 能力
 - 集成 `trouble.nvim` 用于诊断与问题列表
 - 集成 `nvim-dap`、`nvim-dap-ui`、`nvim-dap-virtual-text`
 - 集成 `nvim-lint`、`overseer.nvim`、`neotest`、`persistence.nvim`
@@ -110,6 +110,8 @@ nix develop
 
 - `gc{motion}`、`gcc` 和可视模式 `gc` 使用 Neovim 原生行注释，`gco` / `gcO` 在下方 / 上方新建注释并进入插入模式。
 - 已移除 Comment.nvim 专有的 `gb` / `gbc` 块注释键位。
+
+- 首页的 `f n p g r q` 分别打开文件查找、新文件、最近项目、全文搜索、最近文件和退出。
 
 ### Completion
 - `<C-j>` / `<C-k>`：向下 / 向上选择补全候选
