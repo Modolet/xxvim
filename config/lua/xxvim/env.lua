@@ -21,9 +21,8 @@ local function shell_name(path)
   return vim.fs.basename(path or "")
 end
 
-local function current_shell_is_nix_bash()
-  local current_shell = vim.o.shell or vim.env.SHELL or ""
-  return current_shell:match("^/nix/store/.*/bin/bash$") ~= nil
+local function in_devshell_bash()
+  return vim.env.IN_NIX_SHELL ~= nil and shell_name(vim.o.shell) == "bash"
 end
 
 local function apply_shell_defaults(shell)
@@ -72,15 +71,26 @@ function M.setup_path_precedence()
 end
 
 function M.setup_shell_precedence()
+  if not in_devshell_bash() then
+    return
+  end
   local passwd = vim.uv.os_get_passwd()
-  if not passwd or not passwd.shell or passwd.shell == "" then
+  if not passwd or not passwd.shell or vim.fn.executable(passwd.shell) ~= 1 then
     return
   end
 
-  if vim.env.IN_NIX_SHELL ~= nil and current_shell_is_nix_bash() then
-    vim.env.SHELL = passwd.shell
-    apply_shell_defaults(passwd.shell)
+  vim.env.SHELL = passwd.shell
+  apply_shell_defaults(passwd.shell)
+end
+
+function M.interactive_shell()
+  local preferred = in_devshell_bash() and vim.env.SHELL or vim.o.shell
+  for _, shell in ipairs({ preferred or "", vim.o.shell, vim.env.SHELL or "", "sh" }) do
+    if vim.fn.executable(shell) == 1 then
+      return shell
+    end
   end
+  error("No executable interactive shell found")
 end
 
 return M

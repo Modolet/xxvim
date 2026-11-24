@@ -4,21 +4,19 @@ local navigator = require("xxvim.navigator")
 local terminals = {
   float = {
     layout = "float",
-    command = nil,
     win = nil,
     buf = nil,
     job = nil,
   },
   bottom = {
     layout = "bottom",
-    command = nil,
     win = nil,
     buf = nil,
     job = nil,
   },
   lazygit = {
     layout = "float",
-    command = "lazygit",
+    command = { "lazygit" },
     win = nil,
     buf = nil,
     job = nil,
@@ -40,7 +38,7 @@ local setup_managed_terminal_keymaps
 local function setup_terminal_buffer_keymaps(buffer)
   local function map(lhs, rhs, desc)
     vim.keymap.set("t", lhs, rhs, {
-      buffer = buffer,
+      buf = buffer,
       silent = true,
       nowait = true,
       desc = desc,
@@ -108,7 +106,7 @@ end
 setup_managed_terminal_keymaps = function(buffer, name)
   local function map(mode, lhs, rhs, desc)
     vim.keymap.set(mode, lhs, rhs, {
-      buffer = buffer,
+      buf = buffer,
       silent = true,
       nowait = true,
       desc = desc,
@@ -151,10 +149,9 @@ end
 local function spawn_terminal(name, command)
   local terminal = terminals[name]
   local buffer = vim.api.nvim_create_buf(false, true)
-  local cmd = command or terminal.command or vim.o.shell
+  local cmd = command or terminal.command or { require("xxvim.env").interactive_shell() }
 
   terminal.buf = buffer
-  terminal.command = cmd
 
   vim.bo[buffer].bufhidden = "hide"
   vim.bo[buffer].filetype = "terminal"
@@ -163,9 +160,13 @@ local function spawn_terminal(name, command)
   setup_managed_terminal_keymaps(buffer, name)
 
   vim.api.nvim_buf_call(buffer, function()
-    terminal.job = vim.fn.termopen(cmd, {
-      on_exit = function()
+    terminal.job = vim.fn.jobstart(cmd, {
+      term = true,
+      on_exit = function(job)
         vim.schedule(function()
+          if terminal.buf ~= buffer or terminal.job ~= job then
+            return
+          end
           if terminal.auto_close_on_exit then
             close_terminal(name)
           elseif is_valid_buf(terminal.buf) then

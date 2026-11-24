@@ -132,6 +132,7 @@ nix develop
 - `<leader>dt`：终止调试
 
 ### Terminal / Window / Session
+- `Ctrl+/` / `Ctrl+.`：底部终端 / 浮动终端
 - `<leader>T` / `<leader>tb`：浮动终端 / 底部终端
 - `<leader>ws` / `<leader>wv`：水平 / 垂直分屏
 - `<leader>wd` / `<leader>wo` / `<leader>w=`：关闭窗口 / 仅保留当前 / 均分窗口
