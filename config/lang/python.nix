@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   config = {
     extraPackages = with pkgs; [
@@ -10,7 +10,7 @@
       ruff
     ];
 
-    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+    plugins.treesitter.grammarPackages = with config.plugins.treesitter.package.builtGrammars; [
       python
     ];
 

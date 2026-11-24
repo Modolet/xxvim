@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   config = {
     extraPackages = with pkgs; [
@@ -8,7 +8,7 @@
       taplo
     ];
 
-    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+    plugins.treesitter.grammarPackages = with config.plugins.treesitter.package.builtGrammars; [
       markdown
       markdown_inline
       toml

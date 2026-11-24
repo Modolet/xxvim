@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   config = {
     extraPlugins = with pkgs.vimPlugins; [ crates-nvim ];
@@ -12,7 +12,7 @@
       rustfmt
     ];
 
-    plugins.treesitter.grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+    plugins.treesitter.grammarPackages = with config.plugins.treesitter.package.builtGrammars; [
       rust
     ];
 
