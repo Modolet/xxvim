@@ -17,10 +17,13 @@
     plugins.conform-nvim = {
       enable = true;
       settings = {
-        format_on_save = {
-          timeout_ms = 1000;
-          lsp_format = "fallback";
-        };
+        format_on_save.__raw = ''
+          function(bufnr)
+            if require("xxvim.toggle").state.autoformat and vim.b[bufnr].xxvim_autoformat ~= false then
+              return { timeout_ms = 1000, lsp_format = "fallback" }
+            end
+          end
+        '';
         formatters_by_ft = {
           c = [ "clang_format" ];
           cpp = [ "clang_format" ];
@@ -84,26 +87,6 @@
         map("<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, "Workspace Symbols")
       '';
     };
-
-    autoCmd = [
-      {
-        event = [ "BufWritePre" ];
-        pattern = [ "*.nix" "*.rs" "*.py" "*.c" "*.cpp" "*.css" "*.html" "*.js" "*.jsx" "*.json" "*.md" "*.scss" "*.toml" "*.ts" "*.tsx" "*.vue" "CMakeLists.txt" "*.cmake" ];
-        callback = {
-          __raw = ''
-            function()
-              if require("xxvim.toggle").state.autoformat == false then
-                return
-              end
-              if vim.b.xxvim_autoformat == false then
-                return
-              end
-              require("conform").format({ async = false, lsp_format = "fallback" })
-            end
-          '';
-        };
-      }
-    ];
 
     extraConfigLua = ''
       local capabilities = vim.lsp.protocol.make_client_capabilities()
