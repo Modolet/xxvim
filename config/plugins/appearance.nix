@@ -99,14 +99,10 @@ ${whichKeyGroupsLua}
       '';
     };
 
-    plugins.notify = {
-      enable = true;
-      settings.timeout = 3000;
-    };
-
     plugins.noice = {
       enable = true;
       settings = {
+        views.notify.backend = "snacks";
         presets = {
           bottom_search = true;
           command_palette = true;

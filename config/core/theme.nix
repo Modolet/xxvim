@@ -13,7 +13,6 @@ in
           gitsigns = true;
           native_lsp.enabled = true;
           noice = true;
-          notify = true;
           snacks = true;
           treesitter = true;
           which_key = true;
