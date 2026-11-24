@@ -1,10 +1,15 @@
 let
   keymapGroups = builtins.fromJSON (builtins.readFile ../meta/keymap-groups.json);
   whichKeyGroupsLua = builtins.concatStringsSep "\n" (
-    map (item: ''          { "${item.prefix}", group = "${item.group}" },'') keymapGroups
+    map (item: ''{ "${item.prefix}", group = "${item.group}" },'') keymapGroups
   );
 in
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   useStylix = config.xxvim.theme.stylix.enable;
 in
@@ -17,9 +22,16 @@ in
       settings = {
         options = {
           globalstatus = true;
-          section_separators = { left = ""; right = ""; };
-          component_separators = { left = "│"; right = "│"; };
-        } // lib.optionalAttrs (!useStylix) {
+          section_separators = {
+            left = "";
+            right = "";
+          };
+          component_separators = {
+            left = "│";
+            right = "│";
+          };
+        }
+        // lib.optionalAttrs (!useStylix) {
           theme = "catppuccin";
         };
         sections.lualine_x = [
@@ -93,9 +105,9 @@ in
         icons.mappings = true;
       };
       luaConfig.post = ''
-        require("which-key").add({
-${whichKeyGroupsLua}
-        })
+                require("which-key").add({
+        ${whichKeyGroupsLua}
+                })
       '';
     };
 
@@ -121,7 +133,9 @@ ${whichKeyGroupsLua}
         follow = true;
         indent_guides = true;
         modes = {
-          diagnostics = { auto_open = false; };
+          diagnostics = {
+            auto_open = false;
+          };
         };
         win = {
           position = "right";
@@ -182,14 +196,6 @@ ${whichKeyGroupsLua}
       })
     '';
 
-    plugins.indent-blankline = {
-      enable = true;
-      settings = {
-        indent.char = "▏";
-        scope.enabled = true;
-      };
-    };
-
     plugins.snacks = {
       enable = true;
       settings = {
@@ -249,7 +255,10 @@ ${whichKeyGroupsLua}
           timeout = 3000;
         };
         quickfile.enabled = true;
-        indent.enabled = true;
+        indent = {
+          enabled = true;
+          indent.char = "▏";
+        };
         statuscolumn.enabled = true;
         words.enabled = true;
       };

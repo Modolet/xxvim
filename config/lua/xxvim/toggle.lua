@@ -55,16 +55,6 @@ function M.toggle_background()
   notify_toggle("background", vim.o.background == "dark")
 end
 
-function M.toggle_indent_guides()
-  vim.g.xxvim_indent_guides = not (vim.g.xxvim_indent_guides ~= false)
-  if vim.g.xxvim_indent_guides then
-    pcall(vim.cmd, "IBLEnable")
-  else
-    pcall(vim.cmd, "IBLDisable")
-  end
-  notify_toggle("indent_guides", vim.g.xxvim_indent_guides)
-end
-
 function M.toggle_treesitter_highlight()
   vim.b.xxvim_ts_highlight = not (vim.b.xxvim_ts_highlight ~= false)
   if vim.b.xxvim_ts_highlight then
