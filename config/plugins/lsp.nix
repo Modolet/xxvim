@@ -47,11 +47,48 @@
       enable = true;
       inlayHints = true;
       servers = {
-        cssls.filetypes = [ "css" "scss" "less" ];
-        emmet_language_server.filetypes = [ "css" "eruby" "html" "javascriptreact" "less" "sass" "scss" "svelte" "pug" "typescriptreact" "vue" ];
-        html.filetypes = [ "html" "templ" ];
-        tailwindcss.filetypes = [ "astro" "css" "html" "javascript" "javascriptreact" "markdown" "mdx" "scss" "svelte" "typescript" "typescriptreact" "vue" ];
-        ts_ls.filetypes = [ "javascript" "javascriptreact" "typescript" "typescriptreact" ];
+        cssls.filetypes = [
+          "css"
+          "scss"
+          "less"
+        ];
+        emmet_language_server.filetypes = [
+          "css"
+          "eruby"
+          "html"
+          "javascriptreact"
+          "less"
+          "sass"
+          "scss"
+          "svelte"
+          "pug"
+          "typescriptreact"
+          "vue"
+        ];
+        html.filetypes = [
+          "html"
+          "templ"
+        ];
+        tailwindcss.filetypes = [
+          "astro"
+          "css"
+          "html"
+          "javascript"
+          "javascriptreact"
+          "markdown"
+          "mdx"
+          "scss"
+          "svelte"
+          "typescript"
+          "typescriptreact"
+          "vue"
+        ];
+        ts_ls.filetypes = [
+          "javascript"
+          "javascriptreact"
+          "typescript"
+          "typescriptreact"
+        ];
         vue_ls.filetypes = [ "vue" ];
       };
       onAttach = ''
@@ -60,7 +97,7 @@
             mode or "n",
             keys,
             func,
-            vim.tbl_extend("force", { buffer = bufnr, desc = desc }, opts or {})
+            vim.tbl_extend("force", { buf = bufnr, desc = desc }, opts or {})
           )
         end
 
@@ -93,6 +130,11 @@
       }
 
       vim.diagnostic.config({
+        jump = {
+          on_jump = function(_, bufnr)
+            vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+          end,
+        },
         underline = true,
         update_in_insert = false,
         severity_sort = true,

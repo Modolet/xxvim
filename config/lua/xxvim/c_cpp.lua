@@ -41,11 +41,6 @@ function M.find_alternate_file(path)
   end
 end
 
-local function clangd_clients(bufnr)
-  local get_clients = vim.lsp.get_clients or vim.lsp.get_active_clients
-  return get_clients({ bufnr = bufnr, name = "clangd" })
-end
-
 local function edit(path)
   vim.cmd.edit(vim.fn.fnameescape(path))
 end
@@ -53,11 +48,11 @@ end
 function M.switch_source_header()
   local bufnr = vim.api.nvim_get_current_buf()
   local path = vim.api.nvim_buf_get_name(bufnr)
-  local clients = clangd_clients(bufnr)
+  local clients = vim.lsp.get_clients({ bufnr = bufnr, name = "clangd" })
 
   if #clients > 0 then
     local params = { uri = vim.uri_from_bufnr(bufnr) }
-    clients[1].request("textDocument/switchSourceHeader", params, function(err, result)
+    clients[1]:request("textDocument/switchSourceHeader", params, function(err, result)
       if err then
         vim.notify(err.message or "clangd switch source/header failed", vim.log.levels.WARN)
         return

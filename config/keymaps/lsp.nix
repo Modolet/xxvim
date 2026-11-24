@@ -142,8 +142,8 @@
     {
       mode = "n";
       key = "<leader>cl";
-      action = "<cmd>LspInfo<cr>";
-      options.desc = "Lsp Info";
+      action = "<cmd>checkhealth vim.lsp<cr>";
+      options.desc = "LSP Health";
     }
     {
       mode = "n";
@@ -172,8 +172,8 @@
     {
       mode = "n";
       key = "<leader>cC";
-      action = "<cmd>lua vim.lsp.codelens.refresh()<cr>";
-      options.desc = "Refresh & Display Codelens";
+      action = "<cmd>lua vim.lsp.codelens.enable(true, { bufnr = 0 })<cr>";
+      options.desc = "Enable CodeLens for Buffer";
     }
     {
       mode = "n";
@@ -232,37 +232,37 @@
     {
       mode = "n";
       key = "[d";
-      action = "<cmd>lua vim.diagnostic.goto_prev()<cr>";
+      action = "<cmd>lua vim.diagnostic.jump({ count = -1 })<cr>";
       options.desc = "Prev Diagnostic";
     }
     {
       mode = "n";
       key = "]d";
-      action = "<cmd>lua vim.diagnostic.goto_next()<cr>";
+      action = "<cmd>lua vim.diagnostic.jump({ count = 1 })<cr>";
       options.desc = "Next Diagnostic";
     }
     {
       mode = "n";
       key = "[e";
-      action = "<cmd>lua vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })<cr>";
+      action = "<cmd>lua vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })<cr>";
       options.desc = "Prev Error";
     }
     {
       mode = "n";
       key = "]e";
-      action = "<cmd>lua vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })<cr>";
+      action = "<cmd>lua vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })<cr>";
       options.desc = "Next Error";
     }
     {
       mode = "n";
       key = "[w";
-      action = "<cmd>lua vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })<cr>";
+      action = "<cmd>lua vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.WARN })<cr>";
       options.desc = "Prev Warning";
     }
     {
       mode = "n";
       key = "]w";
-      action = "<cmd>lua vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })<cr>";
+      action = "<cmd>lua vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.WARN })<cr>";
       options.desc = "Next Warning";
     }
     {

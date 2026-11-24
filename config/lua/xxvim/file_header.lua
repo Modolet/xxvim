@@ -33,7 +33,7 @@ end
 local function git_local_user(path)
   local dir = vim.fn.fnamemodify(path, ":p:h")
   if dir == "" then
-    dir = vim.loop.cwd()
+    dir = vim.uv.cwd()
   end
 
   while dir ~= "" and vim.fn.isdirectory(dir) == 0 do
@@ -57,7 +57,7 @@ local function system_user()
     return user
   end
 
-  local passwd = vim.loop.os_get_passwd()
+  local passwd = vim.uv.os_get_passwd()
   return passwd and passwd.username or "unknown"
 end
 
@@ -106,11 +106,17 @@ function M.insert_if_needed(bufnr, opts)
     return
   end
 
-  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, M.make_header({
-    filename = vim.fn.fnamemodify(path, ":t"),
-    author = opts.author or M.author_for(path),
-    date = opts.date or os.date("%Y-%m-%d"),
-  }))
+  vim.api.nvim_buf_set_lines(
+    bufnr,
+    0,
+    -1,
+    false,
+    M.make_header({
+      filename = vim.fn.fnamemodify(path, ":t"),
+      author = opts.author or M.author_for(path),
+      date = opts.date or os.date("%Y-%m-%d"),
+    })
+  )
 end
 
 function M.setup()
